@@ -4,6 +4,9 @@
 
 #include <CL/cl.h>
 
+#include "error_handling.h"
+
+
 #define SEED            5
 #define VECTOR_SIZE     512
 
@@ -39,21 +42,23 @@ int main(int argc, char **argv)
     //Bind to platform
     cl_platform_id platform;
     err = clGetPlatformIDs(1, &platform, NULL);
-    if (err < 0)
-    {
-        perror("Couldn't find any platforms.\n");
-        exit(-1);
-    }
+    handle_error_GetPlatformIDs(err, true, true);
 
-    //Get ID for the device
-    cl_device_id device_ids[2];
-//    err = clGetDeviceInfo(platform, CL_DEVICE_TYPE_ALL, 2, device_ids, NULL);
-    if (err < 0)
-    {
-        perror("Couldn't find any devices.\n");
-        exit(-1);
-    }
+    //Get ID for the device which must be an accelerator and there is only one
+    //of them.
+    cl_device_id device_id;
+    err = clGetDeviceIDs(platform, CL_DEVICE_TYPE_ACCELERATOR, 1, &device_id,
+            NULL);
+    handle_error_GetDeviceIDs(err, true, true);
 
+    //Create a context that has the properties of the platform,
+    //is made of one device, the device is specified in device_id,
+    //No callback function (and no parameters to the callback function)
+    cl_context_properties props[] = {
+        CL_CONTEXT_PLATFORM, (cl_context_properties)platform, 0
+    };
+    cl_context context = clCreateContext(props, 1, &device_id, NULL, NULL, &err);
+    handle_error_CreateContext(err, true, true);
 
     return 0;
 }
