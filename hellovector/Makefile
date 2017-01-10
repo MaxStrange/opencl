@@ -23,6 +23,7 @@ lib_path                          := $(srcdir)
 lib_path                          += $(browndeer)/lib
 
 lds                               := OpenCL
+lds                               += m
 
 WARNING                           += -Wall
 WARNING                           += -Werror

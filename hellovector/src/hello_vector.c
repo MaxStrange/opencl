@@ -1,3 +1,4 @@
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -8,7 +9,6 @@
 
 
 #define SEED            5
-#define VECTOR_SIZE     512
 
 /*
  * Fills a given vector of ints (of size sz) with random numbers.
@@ -23,6 +23,8 @@ int main(int argc, char **argv)
      * for vectors A and B of size VECTOR_SIZE, populated with random numbers
      */
 
+    static const unsigned int VECTOR_SIZE = 512;
+
     //Allocate the necessary host-side memory
     int size = VECTOR_SIZE * sizeof(int);
     int *a = (int *)malloc(size);
@@ -32,6 +34,11 @@ int main(int argc, char **argv)
     //Populate A and B
     random_ints(a, size);
     random_ints(b, size);
+
+    //Number of work items in each local work group
+    size_t local_size = 64;
+    //Number of total work items
+    size_t global_size = ceil(VECTOR_SIZE / (float)local_size) * local_size;
 
     /*
      * Set up the OpenCL stuff
@@ -115,9 +122,9 @@ int main(int argc, char **argv)
     cl_mem d_c = clCreateBuffer(context, CL_MEM_READ_ONLY, size, NULL, &err);
     handle_error_CreateBuffer(err, true, true);
 
-    err = clEnqueueWriteBuffer(queue, d_a, CL_TRUE, 0, size, h_a, 0, NULL, NULL);
+    err = clEnqueueWriteBuffer(queue, d_a, CL_TRUE, 0, size, a, 0, NULL, NULL);
     handle_error_EnqueueWriteBuffer(err, true, true);
-    err = clEnqueueWriteBuffer(queue, d_b, CL_TRUE, 0, size, h_b, 0, NULL, NULL);
+    err = clEnqueueWriteBuffer(queue, d_b, CL_TRUE, 0, size, b, 0, NULL, NULL);
     handle_error_EnqueueWriteBuffer(err, true, true);
 
     err = clSetKernelArg(kernel, 0, sizeof(cl_mem), &d_a);
@@ -126,8 +133,33 @@ int main(int argc, char **argv)
     handle_error_SetKernelArg(err, true, true);
     err = clSetKernelArg(kernel, 2, sizeof(cl_mem), &d_c);
     handle_error_SetKernelArg(err, true, true);
-    err = clSetKernelArg(kernel, 3, sizeof(int), &size);
+    err = clSetKernelArg(kernel, 3, sizeof(int), &VECTOR_SIZE);
     handle_error_SetKernelArg(err, true, true);
+
+    //Execute the kernel over the entire range of the data set
+    err = clEnqueueNDRangeKernel(queue, kernel, 1, NULL, &global_size,
+            &local_size, 0, NULL, NULL);
+
+    //Wait for the command queue to get serviced before reading the results
+    err = clFinish(queue);
+
+    err = clEnqueueReadBuffer(queue, d_c, CL_TRUE, 0, size, c, 0, NULL, NULL);
+
+    //c now contains the resulting vector. Do what you want with it.
+    //TODO
+
+    //Free up all the stuff
+    err = clReleaseMemObject(d_a);
+    err = clReleaseMemObject(d_b);
+    err = clReleaseMemObject(d_c);
+    err = clReleaseProgram(program);
+    err = clReleaseKernel(kernel);
+    err = clReleaseCommandQueue(queue);
+    err = clReleaseContext(context);
+
+    free(a);
+    free(b);
+    free(c);
 
     return 0;
 }

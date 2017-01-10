@@ -69,7 +69,7 @@ bool handle_error_CreateBuffer(cl_int err, bool print_error, bool exit_prog)
             break;
         case CL_MEM_OBJECT_ALLOCATION_FAILURE:
             error = true;
-            err_str = "Failure to allocate the memory for the buffer in call to CreateBuffer.\n"
+            err_str = "Failure to allocate the memory for the buffer in call to CreateBuffer.\n";
             break;
     }
 
@@ -169,7 +169,7 @@ bool handle_error_EnqueueWriteBuffer(cl_int err, bool print_error, bool exit_pro
             break;
         case CL_MEM_OBJECT_ALLOCATION_FAILURE:
             error = true;
-            err_str = "Failure to allocate memory for data store in call to EnqueueWriteBuffer.\n"
+            err_str = "Failure to allocate memory for data store in call to EnqueueWriteBuffer.\n";
             break;
         case CL_INVALID_EVENT_WAIT_LIST:
             error = true;
@@ -244,7 +244,7 @@ bool handle_error_SetKernelArg(cl_int err, bool print_error, bool exit_prog)
             err_str = "An argument has been declared to be a sampler_t, but it is not a valid one in call to SetKernelArg.\n";
             error = true;
             break;
-        case CL_ARG_SIZE:
+        case CL_INVALID_ARG_SIZE:
             err_str = "arg_size does not match the size of the data type for an argument that is not a memory object or the argument is a memory object and arg_size != sizeof(cl_mem) or arg_size is 0 and the argument is declared with the __local qualifier or the argument is a sampler and arg_size != sizeof(cl_sampler).\n";
             error = true;
             break;
