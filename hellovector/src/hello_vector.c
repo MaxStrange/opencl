@@ -108,6 +108,27 @@ int main(int argc, char **argv)
     cl_kernel kernel = clCreateKernel(program, "add_vector", &err);
     handle_error_CreateKernel(err, true, true);
 
+    cl_mem d_a = clCreateBuffer(context, CL_MEM_READ_ONLY, size, NULL, &err);
+    handle_error_CreateBuffer(err, true, true);
+    cl_mem d_b = clCreateBuffer(context, CL_MEM_READ_ONLY, size, NULL, &err);
+    handle_error_CreateBuffer(err, true, true);
+    cl_mem d_c = clCreateBuffer(context, CL_MEM_READ_ONLY, size, NULL, &err);
+    handle_error_CreateBuffer(err, true, true);
+
+    err = clEnqueueWriteBuffer(queue, d_a, CL_TRUE, 0, size, h_a, 0, NULL, NULL);
+    handle_error_EnqueueWriteBuffer(err, true, true);
+    err = clEnqueueWriteBuffer(queue, d_b, CL_TRUE, 0, size, h_b, 0, NULL, NULL);
+    handle_error_EnqueueWriteBuffer(err, true, true);
+
+    err = clSetKernelArg(kernel, 0, sizeof(cl_mem), &d_a);
+    handle_error_SetKernelArg(err, true, true);
+    err = clSetKernelArg(kernel, 1, sizeof(cl_mem), &d_b);
+    handle_error_SetKernelArg(err, true, true);
+    err = clSetKernelArg(kernel, 2, sizeof(cl_mem), &d_c);
+    handle_error_SetKernelArg(err, true, true);
+    err = clSetKernelArg(kernel, 3, sizeof(int), &size);
+    handle_error_SetKernelArg(err, true, true);
+
     return 0;
 }
 

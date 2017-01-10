@@ -18,13 +18,18 @@
 #include <CL/cl.h>
 
 bool handle_error_BuildProgram(cl_int err, bool print_error, bool exit_prog);
-bool handle_error_CreateCommandQueue(cl_int err, bool print_error, bool exit_prog);
+bool handle_error_CreateBuffer(cl_int err, bool print_error, bool exit_prog);
+bool handle_error_CreateCommandQueue(cl_int err, bool print_error,
+        bool exit_prog);
 bool handle_error_CreateContext(cl_int err, bool print_error, bool exit_prog);
+bool handle_error_EnqueueWriteBuffer(cl_int err, bool print_error,
+        bool exit_prog);
 bool handle_error_CreateKernel(cl_int err, bool print_error, bool exit_prog);
 bool handle_error_CreateProgramWithSource(cl_int err, bool print_error,
         bool exit_prog);
 bool handle_error_GetDeviceIDs(cl_int err, bool print_error, bool exit_prog);
 bool handle_error_GetPlatformIDs(cl_int err, bool print_error, bool exit_prog);
+bool handle_error_SetKernelArg(cl_int err, bool print_error, bool exit_prog);
 
 #endif //header guard
 

@@ -49,6 +49,34 @@ bool handle_error_BuildProgram(cl_int err, bool print_error, bool exit_prog)
     return error || handle_error_common(err, print_error, exit_prog);
 }
 
+bool handle_error_CreateBuffer(cl_int err, bool print_error, bool exit_prog)
+{
+    bool error = false;
+    char *err_str;
+    switch (err)
+    {
+        case CL_INVALID_VALUE:
+            error = true;
+            err_str = "Flags are not valid in call to CreateBuffer.\n";
+            break;
+        case CL_INVALID_BUFFER_SIZE:
+            error = true;
+            err_str = "Size is 0 or is greater than CL_DEVICE_MAX_MEM_ALLOC_SIZE in call to CreateBuffer.\n";
+            break;
+        case CL_INVALID_HOST_PTR:
+            error = true;
+            err_str = "host_ptr is NULL and CL_MEM_USE_HOST_PTR or CL_MEM_COPY_HOST_PTR are set in flags or host_ptr is not NULL but CL_MEM_COPY_HOST_PTR or CL_MEM_USE_HOST_PTR are not set in flags in call to CreateBuffer.\n";
+            break;
+        case CL_MEM_OBJECT_ALLOCATION_FAILURE:
+            error = true;
+            err_str = "Failure to allocate the memory for the buffer in call to CreateBuffer.\n"
+            break;
+    }
+
+    print_or_exit(err, print_error, err_str, exit_prog);
+    return error || handle_error_common(err, print_error, exit_prog);
+}
+
 bool handle_error_CreateCommandQueue(cl_int err, bool print_error, bool exit_prog)
 {
     bool error = false;
@@ -125,6 +153,35 @@ bool handle_error_CreateProgramWithSource(cl_int err, bool print_error,
     return error || handle_error_common(err, print_error, exit_prog);
 }
 
+bool handle_error_EnqueueWriteBuffer(cl_int err, bool print_error, bool exit_prog)
+{
+    bool error = false;
+    char *err_str;
+    switch (err)
+    {
+        case CL_INVALID_MEM_OBJECT:
+            error = true;
+            err_str = "Buffer is not a valid buffer object in call to EnqueueWriteBuffer.\n";
+            break;
+        case CL_INVALID_VALUE:
+            error = true;
+            err_str = "The region being written to is out of bounds or ptr is a NULL value for call to EnqueueWriteBuffer.\n";
+            break;
+        case CL_MEM_OBJECT_ALLOCATION_FAILURE:
+            error = true;
+            err_str = "Failure to allocate memory for data store in call to EnqueueWriteBuffer.\n"
+            break;
+        case CL_INVALID_EVENT_WAIT_LIST:
+            error = true;
+            err_str = "Event_wait_list is NULL and num_events_in_wait_list is greater than 0 or event_wait_list is not NULL and num_events_in_wait_list is 0 or event objects in event_wait_list are not valid events in call to EnqueueWriteBuffer.\n";
+            break;
+    }
+
+    print_or_exit(error, print_error, err_str, exit_prog);
+    return error || handle_error_common(err, print_error, exit_prog);
+
+}
+
 bool handle_error_GetDeviceIDs(cl_int err, bool print_error, bool exit_prog)
 {
     bool error = false;
@@ -165,6 +222,38 @@ bool handle_error_GetPlatformIDs(cl_int err, bool print_error, bool exit_prog)
     return error || handle_error_common(err, print_error, exit_prog);
 }
 
+bool handle_error_SetKernelArg(cl_int err, bool print_error, bool exit_prog)
+{
+    bool error = false;
+    char *err_str;
+    switch (err)
+    {
+        case CL_INVALID_ARG_INDEX:
+            err_str = "Argument index is not valid in call to SetKernelArg.\n";
+            error = true;
+            break;
+        case CL_INVALID_ARG_VALUE:
+            err_str = "arg_value is NULL for an argument that is not declared with the __local qualifier or vice versa in call to SetKernelArg.\n";
+            error = true;
+            break;
+        case CL_INVALID_MEM_OBJECT:
+            err_str = "An argument has been declared to be a memory object but is not a valid one in call to SetKernelArg.\n";
+            error = true;
+            break;
+        case CL_INVALID_SAMPLER:
+            err_str = "An argument has been declared to be a sampler_t, but it is not a valid one in call to SetKernelArg.\n";
+            error = true;
+            break;
+        case CL_ARG_SIZE:
+            err_str = "arg_size does not match the size of the data type for an argument that is not a memory object or the argument is a memory object and arg_size != sizeof(cl_mem) or arg_size is 0 and the argument is declared with the __local qualifier or the argument is a sampler and arg_size != sizeof(cl_sampler).\n";
+            error = true;
+            break;
+    }
+
+    print_or_exit(error, print_error, err_str, exit_prog);
+    return error || handle_error_common(err, print_error, exit_prog);
+}
+
 static bool handle_error_common(cl_int err, bool print_error, bool exit_prog)
 {
     bool error = false;
@@ -197,6 +286,10 @@ static bool handle_error_common(cl_int err, bool print_error, bool exit_prog)
             break;
         case CL_INVALID_PROGRAM_EXECUTABLE:
             err_str = "Invalid program executable.\n";
+            error = true;
+            break;
+        case CL_INVALID_COMMAND_QUEUE:
+            err_str = "Invalid command queue.\n";
             error = true;
             break;
     }
