@@ -158,23 +158,33 @@ int main(void)
     //Execute the kernel over the entire range of the data set
     err = clEnqueueNDRangeKernel(queue, kernel, 1, NULL, &global_size,
             &local_size, 0, NULL, NULL);
+    handle_error_EnqueueNDRangeKernel(err, true, true);
 
     //Wait for the command queue to get serviced before reading the results
     err = clFinish(queue);
+    handle_error_Finish(err, true, true);
 
     err = clEnqueueReadBuffer(queue, d_C, CL_TRUE, 0, size, C, 0, NULL, NULL);
+    handle_error_EnqueueReadBuffer(err, true, true);
     clock_t end_time = clock();
 
 
     //Free up all the stuff
     printf("Done, now cleaning up...\n");
     err = clReleaseMemObject(d_A);
+    handle_error_ReleaseMemObject(err, true, false);
     err = clReleaseMemObject(d_B);
+    handle_error_ReleaseMemObject(err, true, false);
     err = clReleaseMemObject(d_C);
+    handle_error_ReleaseMemObject(err, true, false);
     err = clReleaseProgram(program);
+    handle_error_ReleaseProgram(err, true, false);
     err = clReleaseKernel(kernel);
+    handle_error_ReleaseKernel(err, true, false);
     err = clReleaseCommandQueue(queue);
+    handle_error_ReleaseCommandQueue(err, true, false);
     err = clReleaseContext(context);
+    handle_error_ReleaseContext(err, true, false);
 
     free(A);
     free(B);

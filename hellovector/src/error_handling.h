@@ -21,13 +21,22 @@ bool handle_error_CreateBuffer(cl_int err, bool print_error, bool exit_prog);
 bool handle_error_CreateCommandQueue(cl_int err, bool print_error,
         bool exit_prog);
 bool handle_error_CreateContext(cl_int err, bool print_error, bool exit_prog);
-bool handle_error_EnqueueWriteBuffer(cl_int err, bool print_error,
-        bool exit_prog);
 bool handle_error_CreateKernel(cl_int err, bool print_error, bool exit_prog);
 bool handle_error_CreateProgramWithSource(cl_int err, bool print_error,
         bool exit_prog);
+bool handle_error_EnqueueNDRangeKernel(cl_int err, bool print_error,
+        bool exit_prog);
+bool handle_error_EnqueueWriteBuffer(cl_int err, bool print_error,
+        bool exit_prog);
+bool handle_error_Finish(cl_int err, bool print_error, bool exit_prog);
 bool handle_error_GetDeviceIDs(cl_int err, bool print_error, bool exit_prog);
 bool handle_error_GetPlatformIDs(cl_int err, bool print_error, bool exit_prog);
+bool handle_error_ReleaseCommandQueue(cl_int err, bool print_error,
+        bool exit_prog);
+bool handle_error_ReleaseContext(cl_int err, bool print_error, bool exit_prog);
+bool handle_error_ReleaseKernel(cl_int err, bool print_error, bool exit_prog);
+bool handle_error_ReleaseMemObject(cl_int err, bool print_error, bool exit_prog);
+bool handle_error_ReleaseProgram(cl_int err, bool print_error, bool exit_prog);
 bool handle_error_SetKernelArg(cl_int err, bool print_error, bool exit_prog);
 
 #endif //header guard
