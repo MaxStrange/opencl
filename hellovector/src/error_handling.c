@@ -157,6 +157,78 @@ bool handle_error_CreateProgramWithSource(cl_int err, bool print_error,
     return error || handle_error_common(err, print_error, exit_prog);
 }
 
+bool handle_error_EnqueueNDRangeKernel(cl_int err, bool print_error, bool exit_prog)
+{
+    bool error = false;
+    char *err_str;
+    switch (err)
+    {
+        case CL_INVALID_KERNEL_ARGS:
+            error = true;
+            err_str = "Kernel argument values not specified in call to EnqueueNDRangeKernel.\n";
+            break;
+        case CL_INVALID_WORK_DIMENSION:
+            error = true;
+            err_str = "Work dimension is not a value between 1 and 3 in call to EnqueueNDRange.\n";
+            break;
+        case CL_INVALID_WORK_GROUP_SIZE:
+            error = true;
+            err_str = "Invalid work group size in call to EnqueueNDRangeKernel.\n";
+            break;
+        case CL_INVALID_WORK_ITEM_SIZE:
+            error = true;
+            err_str = "Invalid work item size in call to EnqueueNDRangeKernel.\n";
+            break;
+        case CL_INVALID_GLOBAL_OFFSET:
+            error = true;
+            err_str = "Global_work_offset is non NULL in call to EnqueueNDRangeKernel.\n";
+            break;
+        case CL_OUT_OF_RESOURCES:
+            error = true;
+            err_str = "Out of resources in call to EnqueueNDRangeKernel.\n";
+            break;
+        case CL_MEM_OBJECT_ALLOCATION_FAILURE:
+            error = true;
+            err_str = "Failure to allocate memory for data store associated with image or buffer objects specified as arguments to kernel in call to EnqueueNDRangeKernel.\n";
+            break;
+        case CL_INVALID_EVENT_WAIT_LIST:
+            error = true;
+            err_str = "Event_wait_list is NULL and num_events_in_wait_list > 0 or event_wait_list is non NULL and num_events_in_wait_list is 0 or event objects in event_wait_list are not valid events in call to EnqueueNDRangeKernel.\n";
+            break;
+    }
+
+    print_or_exit(err, print_error, err_str, exit_prog);
+    return error || handle_error_common(err, print_error, exit_prog);
+}
+
+bool handle_error_EnqueueReadBuffer(cl_int err, bool print_error, bool exit_prog)
+{
+    bool error = false;
+    char *err_str;
+    switch (err)
+    {
+        case CL_INVALID_MEM_OBJECT:
+            error = true;
+            err_str = "Invalid buffer in call to EnqueueReadBuffer.\n";
+            break;
+        case CL_INVALID_VALUE:
+            error = true;
+            err_str = "Region specified by offset and cb is out of bounds or ptr is NULL in call to EnqueueReadBuffer.\n";
+            break;
+        case CL_INVALID_EVENT_WAIT_LIST:
+            error = true;
+            err_str = "Event_wait_list is NULL and num_events_in_wait_list is greater than 0 or event_wait_list is not NULL and num_events_in_wait_list is 0 or event objects in event_wait_list are not valid events in call to EnqueueReadBuffer.\n";
+            break;
+        case CL_MEM_OBJECT_ALLOCATION_FAILURE:
+            error = true;
+            err_str = "Failure to allocate buffer memory in call to EnqueueReadBuffer.\n";
+            break;
+    }
+
+    print_or_exit(err, print_error, err_str, exit_prog);
+    return error || handle_error_common(err, print_error, exit_prog);
+}
+
 bool handle_error_EnqueueWriteBuffer(cl_int err, bool print_error, bool exit_prog)
 {
     bool error = false;
@@ -184,6 +256,11 @@ bool handle_error_EnqueueWriteBuffer(cl_int err, bool print_error, bool exit_pro
     print_or_exit(error, print_error, err_str, exit_prog);
     return error || handle_error_common(err, print_error, exit_prog);
 
+}
+
+bool handle_error_Finish(cl_int err, bool print_error, bool exit_prog)
+{
+    return handle_error_common(err, print_error, exit_prog);
 }
 
 bool handle_error_GetDeviceIDs(cl_int err, bool print_error, bool exit_prog)
@@ -226,6 +303,64 @@ bool handle_error_GetPlatformIDs(cl_int err, bool print_error, bool exit_prog)
     return error || handle_error_common(err, print_error, exit_prog);
 }
 
+bool handle_error_ReleaseCommandQueue(cl_int err, bool print_error, bool exit_prog)
+{
+    bool error = false;
+    char *err_str;
+    switch (err)
+    {
+        case CL_OUT_OF_RESOURCES:
+            error = true;
+            err_str = "Failure to allocate resources required by the OpenCL implementation on the device in call to ReleaseCommandQueue.\n";
+            break;
+    }
+
+    print_or_exit(error, print_error, err_str, exit_prog);
+    return handle_error_common(err, print_error, exit_prog);
+}
+
+bool handle_error_ReleaseContext(cl_int err, bool print_error, bool exit_prog)
+{
+    return handle_error_common(err, print_error, exit_prog);
+}
+
+bool handle_error_ReleaseKernel(cl_int err, bool print_error, bool exit_prog)
+{
+    return handle_error_common(err, print_error, exit_prog);
+}
+
+bool handle_error_ReleaseMemObject(cl_int err, bool print_error, bool exit_prog)
+{
+    bool error = false;
+    char *err_str;
+    switch (err)
+    {
+        case CL_INVALID_MEM_OBJECT:
+            error = true;
+            err_str = "Memobj is not a valid memory object in call to ReleaseMemObject.\n";
+            break;
+    }
+
+    print_or_exit(error, print_error, err_str, exit_prog);
+    return error || handle_error_common(err, print_error, exit_prog);
+}
+
+bool handle_error_ReleaseProgram(cl_int err, bool print_error, bool exit_prog)
+{
+    bool error = false;
+    char *err_str;
+    switch (err)
+    {
+        case CL_OUT_OF_RESOURCES:
+            error = true;
+            err_str = "Failure to allocate resources required by the OpenCL implementation on the device.\n";
+            break;
+    }
+
+    print_or_exit(error, print_error, err_str, exit_prog);
+    return error || handle_error_common(err, print_error, exit_prog);
+}
+
 bool handle_error_SetKernelArg(cl_int err, bool print_error, bool exit_prog)
 {
     bool error = false;
@@ -249,7 +384,7 @@ bool handle_error_SetKernelArg(cl_int err, bool print_error, bool exit_prog)
             error = true;
             break;
         case CL_INVALID_ARG_SIZE:
-            err_str = "arg_size does not match the size of the data type for an argument that is not a memory object or the argument is a memory object and arg_size != sizeof(cl_mem) or arg_size is 0 and the argument is declared with the __local qualifier or the argument is a sampler and arg_size != sizeof(cl_sampler).\n";
+            err_str = "arg_size does not match the size of the data type for an argument that is not a memory object or the argument is a memory object and arg_size != sizeof(cl_mem) or arg_size is 0 and the argument is declared with the __local qualifier or the argument is a sampler and arg_size != sizeof(cl_sampler) in call to SetKernelArg.\n";
             error = true;
             break;
     }
@@ -264,6 +399,10 @@ static bool handle_error_common(cl_int err, bool print_error, bool exit_prog)
     char *err_str;
     switch (err)
     {
+        case CL_INVALID_KERNEL:
+            err_str = "Invalid kernel.\n";
+            error = true;
+            break;
         case CL_INVALID_PROGRAM:
             err_str = "Invalid program.\n";
             error = true;

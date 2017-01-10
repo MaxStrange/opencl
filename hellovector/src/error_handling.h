@@ -26,6 +26,8 @@ bool handle_error_CreateProgramWithSource(cl_int err, bool print_error,
         bool exit_prog);
 bool handle_error_EnqueueNDRangeKernel(cl_int err, bool print_error,
         bool exit_prog);
+bool handle_error_EnqueueReadBuffer(cl_int err, bool print_error,
+        bool exit_prog);
 bool handle_error_EnqueueWriteBuffer(cl_int err, bool print_error,
         bool exit_prog);
 bool handle_error_Finish(cl_int err, bool print_error, bool exit_prog);
