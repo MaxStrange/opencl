@@ -39,12 +39,14 @@ CXXFLAGS                          += -std=c99
 # If we are on the Apple computer
 OS                                := $(shell uname)
 ifeq ($(OS), Darwin)
-LDFLAGS                           += -framework OpenCL
+    LDFLAGS                           += -framework OpenCL
 else
-browndeer                         := /usr/local/browndeer
-lds                               += OpenCL
-inc_path                          += $(browndeer)/include
-lib_path                          += $(browndeer)/lib
+    browndeer                         := /usr/local/browndeer
+    lds                               += OpenCL
+    lds                               += ocl
+    lds                               += stdcl
+    inc_path                          += $(browndeer)/include
+    lib_path                          += $(browndeer)/lib
 endif
 
 CFLAGS                            := $(addprefix -I, $(inc_path))
