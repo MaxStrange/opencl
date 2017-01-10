@@ -60,6 +60,54 @@ int main(int argc, char **argv)
     cl_context context = clCreateContext(props, 1, &device_id, NULL, NULL, &err);
     handle_error_CreateContext(err, true, true);
 
+    //Create a command queue
+    //cl_command_queue_properties cq_props[] = { (cl_command_queue_properties)0 };
+    cl_command_queue queue = clCreateCommandQueue(context, device_id,
+            0, &err);
+    handle_error_CreateCommandQueue(err, true, true);
+
+    //Create the OpenCL program kernel
+    const char *kernel_source = 
+            "#pragma OPENCL EXTENSION cl_khr_icd : enable  \n"\
+            "__kernel void add_vector(__global float *a,   \n"\
+            "                         __global float *b,   \n"\
+            "                         __global float *c,   \n"\
+            "                         const unsigned int n)\n"\
+            "{                                             \n"\
+            "   //Get our global thread ID                 \n"\
+            "   int id = get_global_id(0);                 \n"\
+            "   //Make sure we do not go out of bounds     \n"\
+            "   if (id < n)                                \n"\
+            "       c[id] = a[id] + b[id];                 \n"\
+            "}                                             \n";
+    cl_program program = clCreateProgramWithSource(context, 1,
+            (const char **) &kernel_source, NULL, &err);
+    handle_error_CreateProgramWithSource(err, true, true);
+
+    //Build the OpenCL program kernel
+    const char *options = "-cl-finite-math-only -cl-no-signed-zeros";
+    err = clBuildProgram(program, 1, &device_id, options, NULL, NULL);
+    if (handle_error_BuildProgram(err, true, false))
+    {
+        //Get the size of the build log
+        size_t log_size;
+        clGetProgramBuildInfo(program, device_id, CL_PROGRAM_BUILD_LOG,
+                0, NULL, &log_size);
+
+        //Now read the log into the build log
+        char *program_log = (char *)malloc(log_size + 1);
+        program_log[log_size] = '\0';
+        clGetProgramBuildInfo(program, device_id, CL_PROGRAM_BUILD_LOG,
+                log_size + 1, program_log, NULL);
+
+        printf("%s\n", program_log);
+        free(program_log);
+        exit(-1);
+    }
+    
+    cl_kernel kernel = clCreateKernel(program, "add_vector", &err);
+    handle_error_CreateKernel(err, true, true);
+
     return 0;
 }
 
