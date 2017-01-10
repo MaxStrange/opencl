@@ -3,7 +3,11 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include <CL/cl.h>
+#ifdef __APPLE__
+    #include "OpenCL/opencl.h"
+#else
+    #include "CL/cl.h"
+#endif
 
 #include "error_handling.h"
 
@@ -54,8 +58,12 @@ int main(int argc, char **argv)
     //Get ID for the device which must be an accelerator and there is only one
     //of them.
     cl_device_id device_id;
+    #ifdef __APPLE__
+    err = clGetDeviceIDs(platform, CL_DEVICE_TYPE_GPU, 1, &device_id, NULL);
+    #else
     err = clGetDeviceIDs(platform, CL_DEVICE_TYPE_ACCELERATOR, 1, &device_id,
             NULL);
+    #endif
     handle_error_GetDeviceIDs(err, true, true);
 
     //Create a context that has the properties of the platform,
@@ -74,7 +82,7 @@ int main(int argc, char **argv)
     handle_error_CreateCommandQueue(err, true, true);
 
     //Create the OpenCL program kernel
-    const char *kernel_source = 
+    const char *kernel_source =
             "#pragma OPENCL EXTENSION cl_khr_icd : enable  \n"\
             "__kernel void add_vector(__global float *a,   \n"\
             "                         __global float *b,   \n"\
@@ -111,7 +119,7 @@ int main(int argc, char **argv)
         free(program_log);
         exit(-1);
     }
-    
+
     cl_kernel kernel = clCreateKernel(program, "add_vector", &err);
     handle_error_CreateKernel(err, true, true);
 
@@ -136,6 +144,7 @@ int main(int argc, char **argv)
     err = clSetKernelArg(kernel, 3, sizeof(int), &VECTOR_SIZE);
     handle_error_SetKernelArg(err, true, true);
 
+    clock_t start_time = clock();
     //Execute the kernel over the entire range of the data set
     err = clEnqueueNDRangeKernel(queue, kernel, 1, NULL, &global_size,
             &local_size, 0, NULL, NULL);
@@ -144,9 +153,8 @@ int main(int argc, char **argv)
     err = clFinish(queue);
 
     err = clEnqueueReadBuffer(queue, d_c, CL_TRUE, 0, size, c, 0, NULL, NULL);
+    clock_t end_time = clock();
 
-    //c now contains the resulting vector. Do what you want with it.
-    //TODO
 
     //Free up all the stuff
     err = clReleaseMemObject(d_a);
@@ -160,6 +168,10 @@ int main(int argc, char **argv)
     free(a);
     free(b);
     free(c);
+
+    double total_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+    printf("Total time taken for addition of %u random numbers: %f seconds\n",
+            VECTOR_SIZE, total_time);
 
     return 0;
 }

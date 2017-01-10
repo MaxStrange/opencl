@@ -15,7 +15,6 @@
 #define __ERROR_HANDLING_H__
 
 #include <stdbool.h>
-#include <CL/cl.h>
 
 bool handle_error_BuildProgram(cl_int err, bool print_error, bool exit_prog);
 bool handle_error_CreateBuffer(cl_int err, bool print_error, bool exit_prog);

@@ -3,7 +3,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <CL/cl.h>
+#ifdef __APPLE__
+    #include "OpenCL/opencl.h"
+#else
+    #include "CL/cl.h"
+#endif
 
 #include "error_handling.h"
 

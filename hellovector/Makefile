@@ -6,7 +6,7 @@ rootdir                           := $(shell pwd)
 BUILDDIR                          := $(rootdir)/build
 OBJDIR                            := $(BUILDDIR)/obj
 srcdir                            := $(rootdir)/src
-browndeer                         := /usr/local/browndeer
+#browndeer                         := /usr/local/browndeer
 
 src                               := $(wildcard $(srcdir)/*.c)
 
@@ -19,10 +19,10 @@ SED                               := sed
 inc_path                          := $(srcdir)
 inc_path                          += $(browndeer)/include
 
-lib_path                          := $(srcdir)
-lib_path                          += $(browndeer)/lib
+lib_path                          :=
+#lib_path                          := $(browndeer)/lib
 
-lds                               := OpenCL
+lds                               := #OpenCL
 lds                               += m
 
 WARNING                           += -Wall
@@ -46,6 +46,7 @@ obj                               := $(addprefix $(OBJDIR)/, $(notdir $(src)))
 obj                               := $(obj:.c=.o)
 
 LDFLAGS                           := $(addprefix -l, $(lds))
+LDFLAGS                           += -framework OpenCL
 
 empty :=
 space := $(empty) $(empty)
@@ -82,4 +83,9 @@ $(OBJDIR)/%.d: %.c | $(OBJDIR)
 ifeq ($(filter clean,$(MAKECMDGOALS)),)
 -include $(obj:.o=.d)
 endif
+
+
+
+
+
 
