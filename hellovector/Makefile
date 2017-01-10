@@ -53,7 +53,7 @@ CFLAGS                            += $(addprefix -L, $(lib_path))
 obj                               := $(addprefix $(OBJDIR)/, $(notdir $(src)))
 obj                               := $(obj:.c=.o)
 
-LDFLAGS                           := $(addprefix -l, $(lds))
+lds                               := $(addprefix -l, $(lds))
 
 
 empty :=
