@@ -43,10 +43,13 @@ ifeq ($(OS), Darwin)
 else
     browndeer                         := /usr/local/browndeer
     lds                               += OpenCL
-    lds                               += ocl
-    lds                               += stdcl
-    inc_path                          += $(browndeer)/include
-    lib_path                          += $(browndeer)/lib
+    #lds                               += ocl
+    #lds                               += stdcl
+    lds                               += coprthr
+    lds                               += coprthrcc
+    lds                               += dl
+    inc_path                          += $(browndeer)/coprthr2/include
+    lib_path                          += $(browndeer)/coprthr2/lib
 endif
 
 CFLAGS                            := $(addprefix -I, $(inc_path))
