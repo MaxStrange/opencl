@@ -6,7 +6,6 @@ rootdir                           := $(shell pwd)
 BUILDDIR                          := $(rootdir)/build
 OBJDIR                            := $(BUILDDIR)/obj
 srcdir                            := $(rootdir)/src
-#browndeer                         := /usr/local/browndeer
 
 src                               := $(wildcard $(srcdir)/*.c)
 
@@ -17,13 +16,10 @@ MKDIR                             := mkdir -p
 SED                               := sed
 
 inc_path                          := $(srcdir)
-inc_path                          += $(browndeer)/include
 
 lib_path                          :=
-#lib_path                          := $(browndeer)/lib
 
-lds                               := #OpenCL
-lds                               += m
+lds                               := m
 
 WARNING                           += -Wall
 WARNING                           += -Werror
@@ -46,7 +42,17 @@ obj                               := $(addprefix $(OBJDIR)/, $(notdir $(src)))
 obj                               := $(obj:.c=.o)
 
 LDFLAGS                           := $(addprefix -l, $(lds))
+
+# If we are on the Apple computer
+OS                                := $(shell uname)
+ifeq ($(OS), Darwin)
 LDFLAGS                           += -framework OpenCL
+else
+browndeer                         := /usr/local/browndeer
+lds                               += OpenCL
+inc_path                          += $(browndeer)/include
+lib_path                          += $(browndeer)/lib
+endif
 
 empty :=
 space := $(empty) $(empty)
