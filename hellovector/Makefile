@@ -66,7 +66,7 @@ vpath %.o $(OBJDIR)
 all: $(appname)
 
 $(appname): $(obj)
-	$(Q) $(CXX) $^ $(CFLAGS) $(LDFLAGS) -o $@
+	$(Q) $(CXX) $^ $(CFLAGS) $(LDFLAGS) $(lds) -o $@
 
 .PHONY: clean
 clean:
