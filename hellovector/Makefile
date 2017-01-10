@@ -35,14 +35,6 @@ CXXFLAGS                          += $(WARNING)
 CXXFLAGS                          += $(OPTIMIZATION)
 CXXFLAGS                          += -std=c99
 
-CFLAGS                            := $(addprefix -I, $(inc_path))
-CFLAGS                            += $(addprefix -L, $(lib_path))
-
-obj                               := $(addprefix $(OBJDIR)/, $(notdir $(src)))
-obj                               := $(obj:.c=.o)
-
-LDFLAGS                           := $(addprefix -l, $(lds))
-
 # If we are on the Apple computer
 OS                                := $(shell uname)
 ifeq ($(OS), Darwin)
@@ -53,6 +45,15 @@ lds                               += OpenCL
 inc_path                          += $(browndeer)/include
 lib_path                          += $(browndeer)/lib
 endif
+
+CFLAGS                            := $(addprefix -I, $(inc_path))
+CFLAGS                            += $(addprefix -L, $(lib_path))
+
+obj                               := $(addprefix $(OBJDIR)/, $(notdir $(src)))
+obj                               := $(obj:.c=.o)
+
+LDFLAGS                           := $(addprefix -l, $(lds))
+
 
 empty :=
 space := $(empty) $(empty)
