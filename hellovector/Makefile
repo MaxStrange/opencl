@@ -22,6 +22,7 @@ lib_path                          :=
 lds                               := m
 
 WARNING                           += -Wall
+WARNING                           += -Wextra
 WARNING                           += -Werror
 WARNING                           += -Wfatal-errors
 WARNING                           += -Wno-unused-local-typedefs
