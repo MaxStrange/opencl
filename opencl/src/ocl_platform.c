@@ -25,9 +25,7 @@
 
 #include "xcl_structs.h"
 #include "printcl.h"
-#include "device.h"
 #include "version.h"
-#include "cmdcall.h"
 
 #define min(a,b) ((a<b)?a:b)
 

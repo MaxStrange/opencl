@@ -25,8 +25,6 @@
 
 #include "xcl_structs.h"
 #include "printcl.h"
-#include "device.h"
-#include "coprthr_arch.h"
 
 void __do_discover_devices( unsigned int* p_ndevices, 
 	struct _cl_device_id** p_dtab, int flag);

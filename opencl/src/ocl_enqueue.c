@@ -24,7 +24,6 @@
 
 #include "xcl_structs.h"
 #include "printcl.h"
-#include "event.h"
 #include <pthread.h>
 
 void __do_release_event(cl_event ev);

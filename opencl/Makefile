@@ -1,6 +1,6 @@
 Q ?= @
 
-appname := epiphany_opencl
+appname := eocl
 
 rootdir                           := $(shell pwd)
 BUILDDIR                          := $(rootdir)/build
@@ -16,7 +16,7 @@ MKDIR                             := mkdir -p
 SED                               := sed
 
 inc_path                          := $(srcdir)
-inc_path                          += $(cl_header_dir)
+inc_path                          += $(tmp_dir)
 
 lds                               := m
 

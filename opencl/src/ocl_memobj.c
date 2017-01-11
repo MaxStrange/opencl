@@ -26,8 +26,6 @@
 #include "xcl_structs.h"
 #include "printcl.h"
 
-#include "coprthr.h"
-
 #ifndef max
 #define max(a,b) ((a<b)?b:a)
 #endif

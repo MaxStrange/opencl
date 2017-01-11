@@ -25,7 +25,6 @@
 
 #include "xcl_structs.h"
 #include "printcl.h"
-//#include "context.h"
 
 #define CL_CONTEXT_OFFLINE_DEVICES_COPRTHR 0x403F
 

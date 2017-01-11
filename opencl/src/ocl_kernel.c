@@ -25,8 +25,6 @@
 
 #include "xcl_structs.h"
 #include "printcl.h"
-#include "kernel.h"
-#include "program.h"
 
 
 void __do_create_kernel(cl_kernel, cl_uint knum);
@@ -349,7 +347,6 @@ clGetKernelWorkGroupInfo( cl_kernel krn, cl_device_id devid,
 
 #include "xcl_structs.h"
 #include "printcl.h"
-#include "kernel.h"
 
 
 void __do_create_kernel(cl_kernel krn, cl_uint k) 

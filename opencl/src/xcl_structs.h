@@ -31,11 +31,6 @@
 
 #include "printcl.h"
 
-#include "coprthr_device.h"
-#include "coprthr_sched.h"
-#include "coprthr_program.h"
-#include "coprthr_mem.h"
-
 
 extern void* __icd_call_vector;
 

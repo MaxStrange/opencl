@@ -25,7 +25,6 @@
 
 #include "xcl_structs.h"
 #include "printcl.h"
-#include "compiler.h"
 
 void __do_create_program(cl_program prg);
 void __do_release_program(cl_program prg);
