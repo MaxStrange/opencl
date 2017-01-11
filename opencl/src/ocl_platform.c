@@ -174,21 +174,6 @@ clGetPlatformInfo( cl_platform_id platformid, cl_platform_info param_name,
 
 // internal platform implementation calls
 
-/*
-struct _strtab_entry {
-   size_t alloc_sz;
-   size_t sz;
-   char* buf;
-};
-*/
-
-/*
-struct _clsymtab_entry {
-   cl_uint kind;
-   cl_uint type;
-};
-*/
-
 static struct _cl_platform_id* __ptab = 0;
 static unsigned int __nplatforms = 0;
 

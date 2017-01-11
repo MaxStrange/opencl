@@ -262,20 +262,17 @@ printcl( CL_WARNING "clGetKernelWorkGroupInfo: krn %p",krn);
 		case CL_KERNEL_WORK_GROUP_SIZE:
 
 			__case_get_param(sizeof(size_t),&hack);
-//			return(CL_ENOTSUP);
 
 			break;
 
 		case CL_KERNEL_COMPILE_WORK_GROUP_SIZE:
 
-//			__case_get_param(sizeof(size_t),);
 			return(CL_ENOTSUP);
 
 			break;
 
 		case CL_KERNEL_LOCAL_MEM_SIZE:
 
-//			__case_get_param(sizeof(size_t),);
 			return(CL_ENOTSUP);
 
 			break;
@@ -383,45 +380,26 @@ void __do_create_kernel(cl_kernel krn, cl_uint k)
 
 	if (narg == 0) return;
 
-/*
-	krn->krn1[0]->arg_off = malloc(narg*sizeof(uint32_t));
-		
-	size_t arg_buf_sz = krn->krn1[0]->arg_buf_sz = prg->prg1[0]->karg_buf_sz[k];
-
-	if (arg_buf_sz > 0) krn->krn1[0]->arg_buf = malloc(arg_buf_sz);
-
-	size_t sz = 0;
-
-	for(i=0;i<narg;i++) {
-		krn->krn1[0]->arg_off[i] = sz;
-		sz += krn->krn1[0]->prg1->karg_sz[k][i];
-		printcl( CL_DEBUG "CHECKING arg_sz[%d] %d",
-			i,krn->krn1[0]->prg1->karg_sz[k][i]);
-	}
-*/
-
 /* XXX need multiple buffers for each device */
 
 	for(idev=0; idev<prg->ndev; idev++) {
 
-	krn->krn1[idev]->arg_off = malloc(narg*sizeof(uint32_t));
-		
-	size_t arg_buf_sz = krn->krn1[idev]->arg_buf_sz 
-		= prg->prg1[idev]->karg_buf_sz[k];
+        krn->krn1[idev]->arg_off = malloc(narg*sizeof(uint32_t));
+            
+        size_t arg_buf_sz = krn->krn1[idev]->arg_buf_sz 
+            = prg->prg1[idev]->karg_buf_sz[k];
 
-	if (arg_buf_sz > 0) krn->krn1[idev]->arg_buf = malloc(arg_buf_sz);
+        if (arg_buf_sz > 0) krn->krn1[idev]->arg_buf = malloc(arg_buf_sz);
 
-	size_t sz = 0;
+        size_t sz = 0;
 
-	for(i=0;i<narg;i++) {
-		krn->krn1[idev]->arg_off[i] = sz;
-		sz += krn->krn1[idev]->prg1->karg_sz[k][i];
-		printcl( CL_DEBUG "CHECKING arg_sz[%d] %d",
-			i,krn->krn1[idev]->prg1->karg_sz[k][i]);
+        for(i=0;i<narg;i++) {
+            krn->krn1[idev]->arg_off[i] = sz;
+            sz += krn->krn1[idev]->prg1->karg_sz[k][i];
+            printcl( CL_DEBUG "CHECKING arg_sz[%d] %d",
+                i,krn->krn1[idev]->prg1->karg_sz[k][i]);
+        }
 	}
-
-	}
-
 }
 
 void __do_release_kernel(cl_kernel krn) {}
@@ -431,8 +409,6 @@ int __do_set_kernel_arg(
 	cl_kernel krn, cl_uint argn, size_t arg_sz, const void* arg_val 
 )
 {
-//	__do_set_kernel_arg_1( krn->krn1[0], argn, arg_sz, arg_val );
-
 	struct coprthr_mem* mem1;
 
 	/* resolve arg_val for all devices to compensate for opencl design mistake */

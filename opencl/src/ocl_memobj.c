@@ -154,11 +154,6 @@ _clCreateImage2D(
 	if (img_width == 0 || img_height == 0) 
 		__error_return(CL_INVALID_IMAGE_SIZE,cl_mem);
 
-	/* XXX check width,height against all devices in ctx */
-	//size_t max_buffer_size;
-	//__do_get_max_buffer_size_in_context(ctx,&max_buffer_size);
-	//if (size > max_buffer_size) __error_return(CL_INVALID_BUFFER_SIZE,cl_mem);
-
 	if (host_ptr == 0 && img_row_pitch != 0) 
 		__error_return(CL_INVALID_IMAGE_SIZE,cl_mem);
 
@@ -451,20 +446,10 @@ void __do_create_buffer(cl_mem memobj)
 
 	for(i=0;i<ndev;i++) {
 
-//		if (
-//			__resolve_devid_ocldevinfo(ctx->devices[i],devtype)==CL_DEVICE_TYPE_CPU
-//		) {
-
 			printcl( CL_DEBUG "XXX memalloc %p",
 				__resolve_devid_devops(ctx->devices[i],memalloc));
-/*
+
 			memobj->mem1[i] = (struct coprthr_mem*)
-				malloc(sizeof(struct coprthr_mem));
-			memobj->mem1[i]->res 
-				= __resolve_devid_devops(ctx->devices[i],memalloc)(memobj->sz,0);
-*/
-			memobj->mem1[i] = (struct coprthr_mem*)
-//				__resolve_devid_devops(ctx->devices[i],memalloc)(memobj->sz,0);
 				__resolve_devid_devops(ctx->devices[i],memalloc)
 					(memobj->sz,COPRTHR_DEVMEM_TYPE_BUFFER);
 
@@ -485,7 +470,6 @@ void __do_create_buffer(cl_mem memobj)
 
 			if (memobj->flags&CL_MEM_COPY_HOST_PTR) {
 				printcl( CL_DEBUG "CL_MEM_COPY_HOST_PTR");
-//				memcpy(memobj->mem1[i]->res,memobj->host_ptr,memobj->sz);
 				__resolve_devid_devops(ctx->devices[i],memwrite)
 					(memobj->mem1[i],memobj->host_ptr,memobj->sz);
 			}
@@ -494,29 +478,15 @@ void __do_create_buffer(cl_mem memobj)
 				printcl( CL_WARNING 
 					"workaround: CL_MEM_USE_HOST_PTR => CL_MEM_COPY_HOST_PTR,"
 					" fix this");
-//				memcpy(memobj->mem1[i]->res,memobj->host_ptr,memobj->sz);
 				__resolve_devid_devops(ctx->devices[i],memwrite)
 					(memobj->mem1[i],memobj->host_ptr,memobj->sz);
 				
 			}
 
 			printcl( CL_DEBUG "past");
-
-//		} else if (
-//			__resolve_devid_ocldevinfo(ctx->devices[i],devtype)==CL_DEVICE_TYPE_GPU
-//		) {
-//
-//			printcl( CL_WARNING "device unsupported, how did you get here?");
-//
-//		} else {
-//
-//		}
-
 	}
 
 	printcl( CL_DEBUG "__do_create_buffer return");
-
-
 }
 
 

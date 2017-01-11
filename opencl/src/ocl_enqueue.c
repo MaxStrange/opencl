@@ -143,25 +143,6 @@ _clEnqueueReadBuffer(
 
 	} else return(CL_OUT_OF_HOST_MEMORY);
 
-/*
-	if (block) {
-
-		printcl( CL_DEBUG "clEnqueueReadBuffer blocking");
-
-		__lock_event(ev);
-
-      while (ev->cmd_stat != CL_COMPLETE) {
-         printcl( CL_DEBUG "clEnqueueReadBuffer: wait-sleep\n");
-         __wait_event(ev);
-         printcl( CL_DEBUG "clEnqueueReadBuffer: wait-wake\n");
-      }
-
-      printcl( CL_DEBUG "clEnqueueReadBuffer: event %p complete\n",ev);
-
-		__unlock_event(ev);
-
-	}
-*/
 #ifdef FORCE_BLOCKING
 	__wait(ev);
 #else
@@ -221,25 +202,6 @@ _clEnqueueWriteBuffer(
 
 	} else return(CL_OUT_OF_HOST_MEMORY);
 
-/*
-	if (block) {
-
-		printcl( CL_DEBUG "clEnqueueWriteBuffer blocking");
-
-		__lock_event(ev);
-
-      while (ev->cmd_stat != CL_COMPLETE) {
-         printcl( CL_DEBUG "wait-sleep\n");
-         __wait_event(ev);
-         printcl( CL_DEBUG "wait-wake\n");
-      }
-
-      printcl( CL_DEBUG "event %p complete\n",ev);
-
-		__unlock_event(ev);
-
-	}
-*/
 #ifdef FORCE_BLOCKING
 	__wait(ev);
 #else
@@ -342,8 +304,6 @@ _clEnqueueReadImage(
 
 	if (__invalid_image(image)) return(CL_INVALID_MEM_OBJECT);
 
-//	if (image->sz < (offset+cb) || !ptr) return(CL_INVALID_VALUE);
-
 	if (__invalid_context(cmdq->ctx)) return(CL_INVALID_CONTEXT);
 
 	if (__invalid_context(image->ctx)) return(CL_INVALID_CONTEXT);
@@ -405,8 +365,6 @@ _clEnqueueWriteImage(
 
 	if (__invalid_image(image)) return(CL_INVALID_MEM_OBJECT);
 
-//	if (membuf->sz < (offset+cb) || !ptr) return(CL_INVALID_VALUE);
-
 	if (__invalid_context(cmdq->ctx)) return(CL_INVALID_CONTEXT);
 
 	if (__invalid_context(image->ctx)) return(CL_INVALID_CONTEXT);
@@ -467,8 +425,6 @@ _clEnqueueCopyImage(
 	if (__invalid_image(src_image)) return(CL_INVALID_MEM_OBJECT);
 
 	if (__invalid_image(dst_image)) return(CL_INVALID_MEM_OBJECT);
-
-//	if (membuf->sz < (offset+cb) || !ptr) return(CL_INVALID_VALUE);
 
 	if (__invalid_context(cmdq->ctx)) return(CL_INVALID_CONTEXT);
 
@@ -532,8 +488,6 @@ _clEnqueueCopyImageToBuffer(
 
 	if (__invalid_membuf(dst_membuf)) return(CL_INVALID_MEM_OBJECT);
 
-//	if (membuf->sz < (offset+cb) || !ptr) return(CL_INVALID_VALUE);
-
 	if (__invalid_context(cmdq->ctx)) return(CL_INVALID_CONTEXT);
 
 	if (__invalid_context(src_image->ctx)) return(CL_INVALID_CONTEXT);
@@ -596,8 +550,6 @@ _clEnqueueCopyBufferToImage(
 	if (__invalid_membuf(src_membuf)) return(CL_INVALID_MEM_OBJECT);
 
 	if (__invalid_image(dst_image)) return(CL_INVALID_MEM_OBJECT);
-
-//	if (membuf->sz < (offset+cb) || !ptr) return(CL_INVALID_VALUE);
 
 	if (__invalid_context(cmdq->ctx)) return(CL_INVALID_CONTEXT);
 
@@ -696,28 +648,6 @@ _clEnqueueMapBuffer(
 	} else __error_return(CL_OUT_OF_HOST_MEMORY,void*);
 
 
-/*
-	if (block) {
-
-		printcl( CL_WARNING "clEnqueueMapBuffer blocking ev=%p",ev);
-
-		__lock_event(ev);
-
-      while (ev->cmd_stat != CL_COMPLETE) {
-         printcl( CL_DEBUG "wait-sleep\n");
-         __wait_event(ev);
-         printcl( CL_DEBUG "wait-wake\n");
-      }
-
-      printcl( CL_DEBUG "event %p complete\n",ev);
-
-		__unlock_event(ev);
-
-	} else {
-		printcl( CL_DEBUG "clEnqueueMapBuffer non-blocking");
-	}
-*/
-
 #ifdef FORCE_BLOCKING
 	__wait(ev);
 #else
@@ -755,16 +685,11 @@ _clEnqueueMapImage(
 
 	if (__invalid_image(image)) __error_return(CL_INVALID_MEM_OBJECT,void*);
 
-//	if (membuf->sz < (offset+cb) || !ptr) return(CL_INVALID_VALUE,void*);
-
 	if (__invalid_context(cmdq->ctx)) __error_return(CL_INVALID_CONTEXT,void*);
 
 	if (__invalid_context(image->ctx)) __error_return(CL_INVALID_CONTEXT,void*);
 
 	if (cmdq->ctx != image->ctx) __error_return(CL_INVALID_CONTEXT,void*);
-
-//	__check_waitlist_error_return(nwaitlist,waitlist,cmdq->ctx,void*);
-
 
 	struct _cl_event* ev = (struct _cl_event*)malloc(sizeof(struct _cl_event));
 
@@ -873,10 +798,6 @@ _clEnqueueNDRangeKernel(
 
 	if (__invalid_kernel(krn)) return(CL_INVALID_KERNEL);
 
-//	if (__invalid_kernel_args(krn)) return(CL_INVALID_KERNEL_ARGS);
-
-//	if (__invalid_executable(krn,cmdq)) return(CL_INVALID_PROGRAM_EXECUTABLE);
-
 	if (__invalid_context(cmdq->ctx)) return(CL_INVALID_CONTEXT);
 
 	if (__invalid_context(krn->ctx)) return(CL_INVALID_CONTEXT);
@@ -889,7 +810,6 @@ _clEnqueueNDRangeKernel(
 
 	if (work_dim < 1 || work_dim > 3) return(CL_INVALID_WORK_DIMENSION);
 
-//	if (global_work_offset) return(CL_INVALID_GLOBAL_OFFSET);
 	if (global_work_offset && *global_work_offset != 0) 
 		printcl( CL_WARNING "clEnqueueNDRangeKernel: ignoring global_work_offset");
 
@@ -900,13 +820,6 @@ _clEnqueueNDRangeKernel(
 	if (local_work_size) for(i=0;i<work_dim;i++) 
 		if (global_work_size[i]%local_work_size[i]) 
 			return(CL_INVALID_WORK_GROUP_SIZE);
-
-	/* check against CL_DEVICE_MAX_WORK_GROUP_SIZE */
-
-	/* check against CL_DEVICE_MAX_WORK_ITEM_SIZES[] */
-
-	/* XXX no attempt is made to check kernel for attirbutes -DAR */
-
 
 	struct _cl_event* ev = (struct _cl_event*)malloc(sizeof(struct _cl_event));
 
@@ -949,10 +862,6 @@ _clEnqueueTask(
 	if (__invalid_command_queue(cmdq)) return(CL_INVALID_COMMAND_QUEUE);
 
 	if (__invalid_kernel(krn)) return(CL_INVALID_KERNEL);
-
-//	if (__invalid_kernel_args(krn)) return(CL_INVALID_KERNEL_ARGS);
-
-//	if (__invalid_executable(krn,cmdq)) return(CL_INVALID_PROGRAM_EXECUTABLE);
 
 	if (__invalid_context(cmdq->ctx)) return(CL_INVALID_CONTEXT);
 
@@ -1007,28 +916,6 @@ _clEnqueueNativeKernel(
 
 	if (__invalid_command_queue(cmdq)) return(CL_INVALID_COMMAND_QUEUE);
 
-	/* XXX check consistency of contexts w/ cmdq,membuf,waitlist */
-
-/* XXX not supported 
-	struct _cl_event* ev = (struct _cl_event*)malloc(sizeof(struct _cl_event));
-
-	if (ev) {
-
-		__init_event(ev);
-
-		__set_cmd_native_kernel(ev);
-
-		__do_enqueue_cmd(cmdq,ev);
-
-		if (event) *event = ev;
-
-	} else return(CL_OUT_OF_HOST_MEMORY);
-
-#ifdef FORCE_BLOCKING
-	__wait(ev);
-#endif
-*/
-
 	return(CL_ENOTSUP);
 }
 
@@ -1079,34 +966,7 @@ _clEnqueueWaitForEvents(
 {
 	printcl( CL_WARNING "clEnqueueWaitForEvents: warning: unsupported");
 
-/*
-	if (__invalid_command_queue(cmdq)) return(CL_INVALID_COMMAND_QUEUE);
-
-	if (__invalid_context(cmdq->ctx)) return(CL_INVALID_CONTEXT);
-
-	__check_waitlist(nwaitlist,waitlist,cmdq->ctx);
-
-
-	struct _cl_event* ev = (struct _cl_event*)malloc(sizeof(struct _cl_event));
-
-
-	if (ev) {
-
-		__init_event(ev);
-
-		__set_cmd_wait_for_events(ev);
-
-//		__do_enqueue_cmd(ev);
-
-		if (event) *event = ev;
-
-	} else return(CL_OUT_OF_HOST_MEMORY);
-
-
-	return(CL_SUCCESS);
-*/
 	return(CL_ENOTSUP);
-
 }
 
 
@@ -1256,10 +1116,6 @@ clEnqueueBarrier( cl_command_queue cmdq )
 
 void __do_release_event(cl_event ev) 
 {
-	/* XXX may need to check state of event for controlled release -DAR */
-
-	/* XXX this assumes the ev is on cmds_complete, check this first! -DAR */
-
 	__do_release_event_1(ev->ev1);
 	ev->cmdq = 0;
 	ev->dev = 0;
@@ -1412,7 +1268,6 @@ void __do_set_cmd_ndrange_kernel(
 )
 {
 	unsigned int n = ev->cmdq->devnum;
-//	__do_set_cmd_ndrange_kernel_1( cmdq, ev->ev1, krn->krn1[n], work_dim, 
 	__do_set_cmd_ndrange_kernel_1( ev->ev1, krn->krn1[n], work_dim, 
 		global_work_offset, global_work_size, local_work_size);
 }

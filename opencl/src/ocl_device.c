@@ -73,8 +73,6 @@ _clGetDeviceIDs(
 
 	if (n == 0) return(CL_DEVICE_NOT_FOUND);
 
-//	if (ndev_ret) *ndev_ret = n;
-
 	n = min(n,ndev);
 
 	__do_get_devices(platformid,devtype,n,devices);
@@ -485,38 +483,6 @@ clGetDeviceInfo( cl_device_id devid, cl_device_info param_name,
  * Internal device implementation calls
  */
 
-/*
-int getenv_token( const char* name, const char* token, char* value, size_t n );
-
-void* dlh_compiler = 0;
-
-
-static char* strnlen_ws( char* p, char* s, size_t maxlen)
-{
-	size_t sz = strnlen(s,maxlen);
-	char* p1 = s;
-	char* p2 = s + sz;
-	while(p1 < p2 && (*p1==' ' || *p1=='\t' || *p1=='\n')) ++p1;
-	while(--p2 > s && (*p2==' ' || *p2=='\t' || *p2=='\n')) *p2='\0';
-	return(p1);
-}
-
-static char* truncate_ws(char* buf)
-{
-	size_t sz = strnlen(buf,__CLMAXSTR_LEN);
-	char* p = buf + sz - 1;
-	while( p>buf && (*p==' '||*p=='\t'||*p=='\n')) *(p--) = '\0'; 
-	p = buf;
-	while( p<buf+sz && (*p==' '||*p=='\t'||*p=='\n')) ++p; 
-	return(p);
-}
-
-#define COPRTHR_DEVICE_NSUPP_MAX 2
-*/
-
-//struct coprthr_device* __coprthr_do_discover_device_x86_64(void);
-//struct coprthr_device* __coprthr_do_discover_device_i386(void);
-
 void __do_discover_devices(
 	unsigned int* p_ndevices, 
 	struct _cl_device_id** p_dtab, 
@@ -532,9 +498,6 @@ void __do_discover_devices(
 	struct coprthr_device** devtab = 0;
 
 	__do_discover_devices_1(p_ndevices,&devtab,flag);
-
-/* XXX HACK */
-//*p_ndevices = 1;
 
 	struct _cl_device_id* dtab = *p_dtab = (struct _cl_device_id*)
       malloc(*p_ndevices*sizeof(struct _cl_device_id));
@@ -569,67 +532,6 @@ void __do_discover_devices(
 	}
 
 	printcl( CL_DEBUG "__do_discover_devices ndevices %d",*p_ndevices);
-
-//	int i;
-//
-//	unsigned int ncore = sysconf(_SC_NPROCESSORS_ONLN);
-//
-//	if (getenv("COPRTHR_MAX_NUM_ENGINES"))
-//		ncore = min(ncore,atoi(getenv("COPRTHR_MAX_NUM_ENGINES")));
-//
-//#ifdef ENABLE_NCPU
-//
-//	printcl( CL_DEBUG "checking for force_ncpu");
-//
-//	if (!getenv_token("COPRTHR_OCL","force_ncpu",buf,256)) ncpu = atoi(buf);
-//
-//	if (ncore%ncpu) {
-//		printcl( CL_WARNING "force_ncpu ignored, must be multiple of ncore");
-//		ncpu = 1;
-//	}
-//
-//	if (ncpu > 1) {
-//
-//		printcl( CL_WARNING "force_ncpu %d",ncpu);
-//
-//		printcl( CL_DEBUG "force_ncpu = %d",ncpu);
-//
-//		*p_dtab = (struct _cl_device_id*)
-//			realloc(*p_dtab,(ncpu-1)*sizeof(struct _cl_device_id));
-//
-//		for(devnum=1;devnum<ncpu;devnum++) 
-//			memcpy((*p_dtab)+devnum,(*p_dtab),sizeof(struct _cl_device_id));
-//
-//		int cpd = ncore/ncpu;
-//		for(devnum=0;devnum<ncpu;devnum++) {
-//			CPU_ZERO(&dtab[devnum].imp->cpumask);
-//			for(i=devnum*cpd;i<(devnum+1)*cpd;i++) 
-//				CPU_SET(i,&dtab[devnum].imp->cpumask);
-//			dtab[devnum].imp->cpu.veid_base = devnum*cpd;
-//			dtab[devnum].imp->cpu.nve = cpd;
-//			
-//			printcl( CL_DEBUG "devnum base nve %d %d %d",
-//				devnum,dtab[devnum].imp->cpu.veid_base,dtab[devnum].imp->cpu.nve);
-//		}
-//
-//		*p_ndevices = ncpu;
-//
-//	} else {
-//		CPU_ZERO(&dtab[0].imp->cpumask);
-//		for(i=0;i<ncore;i++) CPU_SET(i,&dtab[0].imp->cpumask);
-//		dtab[0].imp->cpu.veid_base = 0;
-//		dtab[0].imp->cpu.nve = ncore;
-//	}
-//#else
-//	CPU_ZERO(&dtab[0].imp->cpumask);
-//	for(i=0;i<ncore;i++) CPU_SET(i,&dtab[0].imp->cpumask);
-//	dtab[0].imp->cpu.veid_base = 0;
-//	dtab[0].imp->cpu.nve = ncore;
-//#endif
-//
-
-//	dtab[0].codev = __coprthr_do_discover_device_x86_64();
-
 }
 
 
@@ -721,7 +623,6 @@ void __do_discover_opencl_device_info_x86_64(
       .supp_exec_cap = CL_EXEC_KERNEL, /* supp_exec_cap */
       .cmdq_prop = CL_QUEUE_PROFILING_ENABLE, /* cmdq_prop */
       .platformid = (cl_platform_id)(-1), /* platformid */
-//      .extensions = "cl_khr_icd"      /* extensions */
 	};
 
 	ocldevinfo->extensions = strdup("cl_khr_icd");
@@ -779,7 +680,6 @@ void __do_discover_opencl_device_info_e32(
       .supp_exec_cap = CL_EXEC_KERNEL, /* supp_exec_cap */
       .cmdq_prop = CL_QUEUE_PROFILING_ENABLE, /* cmdq_prop */
       .platformid = (cl_platform_id)(-1), /* platformid */
-//      .extensions = "cl_khr_icd"      /* extensions */
 	};
 
 	ocldevinfo->extensions = strdup("cl_khr_icd");

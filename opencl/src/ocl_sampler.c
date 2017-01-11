@@ -40,7 +40,6 @@ _clCreateSampler(
 {
 	printcl( CL_WARNING "clCreateSampler: warning: unsupported");
 
-//	if (__invalid_context(ctx)) return(CL_INVALID_CONTEXT);
 	if (__invalid_context(ctx)) __error_return(CL_INVALID_CONTEXT,cl_sampler);
 
 
@@ -88,8 +87,6 @@ _clReleaseSampler( cl_sampler sampler )
 	if (__invalid_sampler(sampler)) return(CL_INVALID_SAMPLER);
 
 	if (--sampler->refc == 0) {
-
-//		__do_release_sampler(sampler);
 
 		__free_sampler(sampler);
 

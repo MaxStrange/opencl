@@ -80,8 +80,6 @@ _clCreateProgramWithSource(
 			prg->prg1[i] = (struct coprthr_program*)
 				calloc(1,sizeof(struct coprthr_program));
 
-//		int i;
-
 		size_t sz = 0;
 
 		for(i=0;i<count;i++) {

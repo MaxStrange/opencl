@@ -20,12 +20,6 @@
 
 /* DAR */
 
-/*  
- * XXX the error checking is weak.  many cases have merely a not-null test
- * XXX for objects as a placeholder for a true test of validity. -DAR
- */
-
-
 #include <CL/cl.h>
 
 #include "xcl_structs.h"
@@ -58,17 +52,6 @@ _clCreateCommandQueue(
 		__error_return(CL_INVALID_DEVICE,cl_command_queue);
 
 	printcl( CL_DEBUG "clCreateCommandQueue");
-
-//		if () { /* XXX this needs to check prop -DAR */
-//			if (err) *err = CL_INVALID_VALUE;
-//			return((cl_command_queue)0);
-//		}
-
-//		if () { /* XXX this needs to check prop against device -DAR */
-//			if (err_ret) *err_ret = CL_INVALID_QUEUE_PROPERTIES;
-//			return((cl_command_queue)0);
-//		}
-
 
 	struct _cl_command_queue* cmdq 
 		= (struct _cl_command_queue*)malloc(sizeof(struct _cl_command_queue));
@@ -117,10 +100,7 @@ _clReleaseCommandQueue( cl_command_queue cmdq )
 	
 		__do_release_command_queue(cmdq);	
 
-//printcl( CL_DEBUG "before __free_command_queue");
 		__free_command_queue(cmdq);
-//printcl( CL_DEBUG "after __free_command_queue");
-
 	}
 
 	return(CL_SUCCESS);
@@ -191,12 +171,6 @@ _clSetCommandQueueProperty(
 	printcl( CL_WARNING "clSetCommandQueueProperty: warning: unsupported");
 
 	if (__invalid_command_queue(cmdq)) return(CL_INVALID_COMMAND_QUEUE);
-
-//		/* XXX this needs to check prop -DAR */
-//		if () return(CL_INVALID_VALUE);
-
-//		/* XXX this needs to check prop against device -DAR */
-//		if () return(CL_INVALID_QUEUE_PROPERTIES);
 
 	if (prop_old) *prop_old = cmdq->prop;
 
