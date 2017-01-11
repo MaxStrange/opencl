@@ -50,6 +50,7 @@ _clCreateProgramWithSource(
 	 cl_int* err_ret
 )
 {
+#if 0
 	printcl( CL_DEBUG "clCreateProgramWithSource");
 
 	if (__invalid_context(ctx)) __error_return(CL_INVALID_CONTEXT,cl_program);
@@ -126,6 +127,7 @@ _clCreateProgramWithSource(
 	__success();
 	
 	return((cl_program)prg);
+#endif
 }
 
 
@@ -140,6 +142,7 @@ _clCreateProgramWithBinary(
 	 cl_int* err_ret
 )
 {
+#if 0
 	printcl( CL_DEBUG "clCreateProgramWithBinary");
 
 	if (__invalid_context(ctx)) __error_return(CL_INVALID_CONTEXT,cl_program);
@@ -209,12 +212,14 @@ _clCreateProgramWithBinary(
 	__success();
 
 	return((cl_program)prg);
+#endif
 }
 
 
 cl_int 
 _clRetainProgram( cl_program prg )
 {
+#if 0
 	printcl( CL_DEBUG "clRetainProgram");
 
 	if (__invalid_program(prg)) return(CL_INVALID_VALUE);
@@ -222,12 +227,14 @@ _clRetainProgram( cl_program prg )
 	__retain_program(prg);
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
 cl_int 
 _clReleaseProgram( cl_program prg )
 {
+#if 0
 	printcl( CL_DEBUG "clReleaseProgram");
 
 	if (__invalid_program(prg)) return(CL_INVALID_VALUE);
@@ -235,6 +242,7 @@ _clReleaseProgram( cl_program prg )
 	__release_program(prg);
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
@@ -248,7 +256,7 @@ _clBuildProgram(
 	 void* user_data
 )
 {
-
+#if 0
 	if (__invalid_program(prg)) return(CL_INVALID_VALUE);
 
 	printcl( CL_DEBUG "clBuildProgram: progam valid");
@@ -309,14 +317,17 @@ _clBuildProgram(
 		printcl( CL_WARNING "clBuildProgram failed with err %d",err);
 
 	return(err);
+#endif
 }
 
 
 cl_int _clUnloadCompiler( void)
 {
+#if 0
 	printcl( CL_WARNING "clUnloadCompiler: warning: unsupported");
 
 	return(CL_ENOTSUP);
+#endif
 }
 
 
@@ -329,7 +340,7 @@ _clGetProgramInfo(
 	 size_t* param_sz_ret
 )
 {
-
+#if 0
 	if (__invalid_program(prg)) return(CL_INVALID_PROGRAM);
 
 	size_t sz;
@@ -406,6 +417,7 @@ _clGetProgramInfo(
 	}
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
@@ -419,7 +431,7 @@ _clGetProgramBuildInfo(
 	 size_t* param_sz_ret
 )
 {
-
+#if 0
 	if (__invalid_program(prg)) return(CL_INVALID_PROGRAM);
 
 	int j;
@@ -458,6 +470,7 @@ _clGetProgramBuildInfo(
 	}
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
@@ -510,33 +523,39 @@ clGetProgramBuildInfo( cl_program prg, cl_device_id devid,
 
 void __do_create_program(cl_program prg)
 {
+#if 0
    printcl( CL_DEBUG "__do_create_program with ndev = %d",prg->ndev);
-
+#endif
 }
 
 
 void __do_release_program(cl_program prg)
 {
+#if 0
    int i;
    for(i=0;i<prg->ndev;i++) {
       __do_release_program_1(prg->prg1[i]);
    }
-
+#endif
 }
 
 cl_int __do_build_program_from_binary(
    cl_program prg,cl_device_id devid, cl_uint devnum
-){
+)
+{
+#if 0
    printcl( CL_DEBUG "__do_build_program_from_binary");
    int retval = __do_build_program_from_binary_1(prg->prg1[devnum]);
    prg->nkrn = prg->prg1[0]->nkrn;
    return(retval);
+#endif
 }
 
 cl_int __do_build_program_from_source(
    cl_program prg,cl_device_id devid, cl_uint devnum
-){
-
+)
+{
+#if 0
    printcl( CL_DEBUG "__do_build_program_from_source");
 
    compiler_t comp = (compiler_t)__resolve_devid_devcomp(devid,comp);
@@ -561,11 +580,13 @@ cl_int __do_build_program_from_source(
    if (!err) err = __do_build_program_from_binary(prg,devid,devnum);
 
    return((cl_int)err);
+#endif
 }
 
 /* XXX this routine uses devnum 0 as a hack, fix it -DAR */
 int __do_find_kernel_in_program( cl_program prg, const char* kname )
 {
+#if 0
    int k;
 
    printcl( CL_DEBUG "nkrn %d",prg->prg1[0]->nkrn);
@@ -578,13 +599,15 @@ int __do_find_kernel_in_program( cl_program prg, const char* kname )
    if (k==prg->prg1[0]->nkrn) return(-1);
 
    return(k);
+#endif
 }
 
 int __do_check_compiler_available( cl_device_id devid )
 {
-
+#if 0
    if (!__resolve_devid_devcomp(devid,comp)) return(0);
 
    return(1);
+#endif
 }
 

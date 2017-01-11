@@ -24,6 +24,7 @@
 #define _clproc_h
 
 #include <sys/time.h>
+#include <sys/types.h>
 #include <unistd.h>
 
 struct clproc_process_struct {

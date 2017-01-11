@@ -32,12 +32,14 @@
 
 static void __do_get_max_buffer_size_in_context(cl_context ctx, size_t* sz)
 {
+#if 0
    int i;
    size_t tmp = 0;
    for(i=0;i<ctx->ndev;i++)
       tmp = max(tmp,
 			__resolve_devid_ocldevinfo(ctx->devices[i],max_mem_alloc_sz));
    *sz = tmp;
+#endif
 }
 
 void __do_create_memobj(cl_mem memobj);
@@ -57,6 +59,7 @@ _clCreateBuffer(
 	cl_int* err_ret
 ) 
 {
+#if 0
 	printcl( CL_DEBUG "clCreateBuffer");
 
 	if (__invalid_context(ctx)) __error_return(CL_INVALID_CONTEXT,cl_mem);
@@ -115,6 +118,7 @@ _clCreateBuffer(
 	} else __error_return(CL_OUT_OF_HOST_MEMORY,cl_mem);
 
 	return(membuf);
+#endif
 }
 
 
@@ -131,6 +135,7 @@ _clCreateImage2D(
 	cl_int* err_ret
 ) 
 {
+#if 0
 	printcl( CL_DEBUG "clCreateImage2D");
 
 	if (__invalid_context(ctx)) __error_return(CL_INVALID_CONTEXT,cl_mem);
@@ -197,7 +202,7 @@ _clCreateImage2D(
 	} else __error_return(CL_OUT_OF_HOST_MEMORY,cl_mem);
 
 	return(membuf);
-
+#endif
 }  
                       
  
@@ -215,9 +220,11 @@ _clCreateImage3D(
 	cl_int* err_ret
 ) 
 {
+#if 0
 	printcl( CL_WARNING "clCreateImage3D: warning: unsupported");
 
 	__error_return(CL_ENOTSUP,cl_mem);
+#endif
 }
 
                         
@@ -225,6 +232,7 @@ _clCreateImage3D(
 cl_int 
 _clRetainMemObject(cl_mem memobj) 
 {
+#if 0
 	printcl( CL_DEBUG "clRetainMemObject");
 
 	if (!memobj) return(CL_INVALID_MEM_OBJECT);
@@ -232,12 +240,14 @@ _clRetainMemObject(cl_mem memobj)
 	__retain_memobj(memobj);
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
 cl_int 
 _clReleaseMemObject(cl_mem memobj)
 {
+#if 0
 	printcl( CL_DEBUG "clReleaseMemObject");
 
 	if (__invalid_memobj(memobj)) return(CL_INVALID_MEM_OBJECT);
@@ -245,6 +255,7 @@ _clReleaseMemObject(cl_mem memobj)
 	__release_memobj(memobj);
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
@@ -257,9 +268,11 @@ _clGetSupportedImageFormats(
 	cl_image_format* imgfmt,
 	cl_uint* nimgfmt_ret)
 {
+#if 0
 	printcl( CL_WARNING "clGetSupportedImageFormats: warning: unsupported");
 
 	return(CL_ENOTSUP);
+#endif
 }
 
                                     
@@ -272,6 +285,7 @@ _clGetMemObjectInfo(
 	size_t* param_sz_ret
 ) 
 {
+#if 0
 	printcl( CL_DEBUG "clGetMemObjectInfo");
 
 	if (__invalid_memobj(memobj)) return(CL_INVALID_MEM_OBJECT);
@@ -329,6 +343,7 @@ _clGetMemObjectInfo(
 	}
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
@@ -341,11 +356,13 @@ _clGetImageInfo(
 	size_t* param_sz_ret
 )
 {
+#if 0
 	printcl( CL_WARNING "clGetImageInfo: warning: unsupported");
 
 	if (__invalid_memobj(image)) return(CL_INVALID_MEM_OBJECT);
 
 	return(CL_ENOTSUP);
+#endif
 }
 
 
@@ -399,7 +416,7 @@ void __do_create_memobj(cl_mem memobj) {}
 
 void __do_release_memobj(cl_mem memobj) 
 {
-
+#if 0
 	int i;
 	cl_context ctx = memobj->ctx;
 	unsigned int ndev = ctx->ndev;
@@ -427,11 +444,12 @@ void __do_release_memobj(cl_mem memobj)
 		}
 
 	}
-
+#endif
 }
 
 void __do_create_buffer(cl_mem memobj) 
 {
+#if 0
 	int i;
 	cl_context ctx = memobj->ctx;
 	unsigned int ndev = ctx->ndev;
@@ -485,11 +503,13 @@ void __do_create_buffer(cl_mem memobj)
 	}
 
 	printcl( CL_DEBUG "__do_create_buffer return");
+#endif
 }
 
 
 void __do_create_image2d(cl_mem memobj) 
 {
+#if 0
 	int i;
 	cl_context ctx = memobj->ctx;
 	unsigned int ndev = ctx->ndev;
@@ -549,6 +569,6 @@ void __do_create_image2d(cl_mem memobj)
 		}
 
 	}
-
+#endif
 }
 

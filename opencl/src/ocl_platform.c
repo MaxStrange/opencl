@@ -57,6 +57,7 @@ _clGetPlatformIDs(
 	cl_uint* nplatforms_ret
 )
 {
+#if 0
 	printcl( CL_DEBUG "clGetPlatformIDs");
 	
 	if (nplatforms == 0 && platforms) return(CL_INVALID_VALUE);
@@ -79,6 +80,7 @@ _clGetPlatformIDs(
 	if (nplatforms_ret) *nplatforms_ret = nplatforms;
 
 	return(CL_SUCCESS);
+#endif
 }
 
 char __suffix_str[] = "_coprthr";
@@ -92,6 +94,7 @@ _clGetPlatformInfo(
 	size_t* param_sz_ret
 ) 
 {
+#if 0
 	printcl( CL_DEBUG "clGetPlatformInfo");
 	
 	if (__invalid_platform_id(platformid)) return(CL_INVALID_PLATFORM);
@@ -152,6 +155,7 @@ _clGetPlatformInfo(
 	}
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
@@ -181,6 +185,7 @@ static struct _cl_device_id* __dtab = 0;
 
 void __do_discover_platforms()
 {
+#if 0
    int i;
 
    if (__nplatforms > 0) return;
@@ -207,52 +212,88 @@ void __do_discover_platforms()
 
        for(i=0;i<__ndevices;i++)
           __dtab[0].ocldevinfo->platformid = __ptab;
-
+#endif
 }
 
 
 static void __do_release_platforms()
 { 
+#if 0
 	if (__dtab) free(__dtab);
+#endif
 }
 
 
 void __do_get_nplatforms_avail(cl_uint* n)
-{ *n = __nplatforms; }
+{
+#if 0
+    *n = __nplatforms;
+#endif
+}
 
 
 void __do_get_platforms(cl_uint n, cl_platform_id* platformid)
 {
+#if 0
    int i;
    for(i=0;i<n;i++) platformid[i] = &__ptab[i];
+#endif
 }
 
 
 void __do_get_default_platformid( cl_platform_id* platformid )
-{ *platformid = &__ptab[0]; }
+{
+#if 0
+    *platformid = &__ptab[0];
+#endif
+}
 
 static void __do_get_platform_profile(cl_platform_id platformid, char** p_str)
-{ *p_str = __resolve_platformid(platformid,profile); }
+{
+#if 0
+    *p_str = __resolve_platformid(platformid,profile);
+#endif
+}
 
 
 static void __do_get_platform_version(cl_platform_id platformid, char** p_str)
-{ *p_str = __resolve_platformid(platformid,version); }
+{
+#if 0
+    *p_str = __resolve_platformid(platformid,version);
+#endif
+}
 
 
 static void __do_get_platform_name(cl_platform_id platformid, char** p_str)
-{ *p_str = __resolve_platformid(platformid,name); }
+{
+#if 0
+    *p_str = __resolve_platformid(platformid,name);
+#endif
+}
 
 
 static void __do_get_platform_vendor(cl_platform_id platformid, char** p_str)
-{ *p_str = __resolve_platformid(platformid,vendor); }
+{
+#if 0
+    *p_str = __resolve_platformid(platformid,vendor);
+#endif
+}
 
 
 static void __do_get_platform_extensions(cl_platform_id platformid, char** p_str)
-{ *p_str = __resolve_platformid(platformid,extensions); }
+{
+#if 0
+    *p_str = __resolve_platformid(platformid,extensions);
+#endif
+}
 
 static char __vendor_icd_ext_suffix[] = "\0";
 
 static void __do_get_platform_icd_suffix_khr(
 	cl_platform_id platformid, char** p_str)
-{ *p_str = __vendor_icd_ext_suffix; }
+{
+#if 0
+    *p_str = __vendor_icd_ext_suffix;
+#endif
+}
 

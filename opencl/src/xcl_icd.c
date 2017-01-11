@@ -41,6 +41,7 @@ clIcdGetPlatformIDsKHR(
 	cl_uint *nplatforms_ret
 )
 {
+#if 0
 	if (nplatforms == 0 && platforms) return(CL_INVALID_VALUE);
 
 	if (!platforms && !nplatforms_ret) return(CL_INVALID_VALUE);
@@ -61,18 +62,21 @@ clIcdGetPlatformIDsKHR(
 	if (nplatforms_ret) *nplatforms_ret = nplatforms;
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
 void*
 clGetExtensionFunctionAddress( const char* funcname )
 {
+#if 0
 	if (!funcname) return 0;
 
 	if (!strcmp("clIcdGetPlatformIDsKHR",funcname) )
 		return &clIcdGetPlatformIDsKHR;
 
 	return 0;
+#endif
 }
 
 

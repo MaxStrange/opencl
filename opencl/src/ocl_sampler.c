@@ -38,6 +38,7 @@ _clCreateSampler(
 	 cl_int* err_ret
 )
 {
+#if 0
 	printcl( CL_WARNING "clCreateSampler: warning: unsupported");
 
 	if (__invalid_context(ctx)) __error_return(CL_INVALID_CONTEXT,cl_sampler);
@@ -63,12 +64,14 @@ _clCreateSampler(
 	__success();
 
 	return((cl_sampler)sampler);
+#endif
 }
 
 
 cl_int 
 _clRetainSampler( cl_sampler sampler )
 {
+#if 0
 	printcl( CL_WARNING "clRetainSampler: warning: unsupported");
 
 	if (__invalid_sampler(sampler)) return(CL_INVALID_SAMPLER);
@@ -76,12 +79,14 @@ _clRetainSampler( cl_sampler sampler )
 	++sampler->refc;
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
 cl_int 
 _clReleaseSampler( cl_sampler sampler )
 {
+#if 0
 	printcl( CL_WARNING "clReleaseSampler: warning: unsupported");
 
 	if (__invalid_sampler(sampler)) return(CL_INVALID_SAMPLER);
@@ -93,6 +98,7 @@ _clReleaseSampler( cl_sampler sampler )
 	}
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
@@ -105,6 +111,7 @@ _clGetSamplerInfo(
 	 size_t* param_sz_ret
 )
 {
+#if 0
 	printcl( CL_WARNING "clGetSamplerInfo: warning: unsupported");
 
 	if (__invalid_sampler(sampler)) return(CL_INVALID_SAMPLER);
@@ -150,6 +157,7 @@ _clGetSamplerInfo(
 	}
 	
 	return(CL_SUCCESS);
+#endif
 }
 
 

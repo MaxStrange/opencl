@@ -49,20 +49,6 @@
 #endif
 
 
-//#if (COPRTHR_ALPHA)
-//#define COPRTHR_VERSION_STRING \
-//	"coprthr-"__stringify(COPRTHR_VERSION)"."__stringify(COPRTHR_REVISION) \
-//	"-CURRENT ("COPRTHR_NAME")"
-//#elif (COPRTHR_BETA)
-//#define COPRTHR_VERSION_STRING \
-//	"coprthr-"__stringify(COPRTHR_VERSION)"."__stringify(COPRTHR_REVISION) \
-//	"-RC ("COPRTHR_NAME")"
-//#else
-//#define COPRTHR_VERSION_STRING \
-//	"coprthr-"__stringify(COPRTHR_VERSION)"."__stringify(COPRTHR_REVISION) \
-//	"."__stringify(COPRTHR_RELEASE)" ("COPRTHR_NAME")"
-//#endif
-
 #define COPRTHR_VERSION_STRING "coprthr-1.6.2 (Freewill)"
 
 

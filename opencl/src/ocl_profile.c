@@ -38,6 +38,7 @@ _clGetEventProfilingInfo(
 	size_t* param_sz_ret
 )
 {
+#if 0
 	printcl( CL_DEBUG "clGetEventProfilingInfo:");
 
 	if (__invalid_event(event)) return(CL_INVALID_EVENT); 
@@ -80,6 +81,7 @@ _clGetEventProfilingInfo(
 	}
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
