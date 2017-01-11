@@ -48,8 +48,10 @@ else
     #lds                               += coprthr
     #lds                               += coprthrcc
     lds                               += dl
+    lds                               += eocl
     inc_path                          += $(browndeer)/include
     lib_path                          += $(browndeer)/lib
+    lib_path                          += $(rootdir)/../opencl
 endif
 
 CFLAGS                            := $(addprefix -I, $(inc_path))

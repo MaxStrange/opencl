@@ -24,9 +24,10 @@ static char* load_kernel_source(size_t *program_size);
  */
 static void random_ints(int *to_fill, size_t sz);
 
-
+extern void print_greeting(void);
 int main(void)
 {
+    print_greeting();
     /*
      * We will be computing A + B = C
      * for vectors A and B of size VECTOR_SIZE, populated with random numbers

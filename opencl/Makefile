@@ -1,6 +1,6 @@
 Q ?= @
 
-appname := eocl
+appname := libeocl
 
 rootdir                           := $(shell pwd)
 BUILDDIR                          := $(rootdir)/build
@@ -50,10 +50,10 @@ vpath %.h $(subst $(space),:,$(inc_path))
 vpath %.o $(OBJDIR)
 
 .PHONY: all
-all: $(appname)
+all: $(appname).so
 
-$(appname): $(obj)
-	$(Q) $(CXX) $^ $(CFLAGS) $(LDFLAGS) $(lds) -o $@
+$(appname).so: $(obj)
+	$(Q) $(LINK.c) -shared $^ $(CFLAGS) $(LDFLAGS) $(lds) -o $@
 
 .PHONY: clean
 clean:
@@ -67,7 +67,7 @@ $(OBJDIR):
 
 $(OBJDIR)/%.o: %.c | $(OBJDIR)
 	@echo "$(CXX) $(notdir $<)"
-	$(Q) $(CXX) $(CFLAGS) $(CXXFLAGS) -c $< -o $@
+	$(Q) $(CXX) $(CFLAGS) $(CXXFLAGS) -fpic -c $< -o $@
 
 $(OBJDIR)/%.d: %.c | $(OBJDIR)
 	@set -e; $(RM) $@; \
