@@ -6,6 +6,7 @@ rootdir                           := $(shell pwd)
 BUILDDIR                          := $(rootdir)/build
 OBJDIR                            := $(BUILDDIR)/obj
 srcdir                            := $(rootdir)/src
+install_location                  := /usr/local/OpenCL/vendors/max
 
 src                               := $(wildcard $(srcdir)/*.c)
 
@@ -16,7 +17,6 @@ MKDIR                             := mkdir -p
 SED                               := sed
 
 inc_path                          := $(srcdir)
-inc_path                          += $(tmp_dir)
 
 lds                               := m
 
@@ -50,14 +50,15 @@ vpath %.h $(subst $(space),:,$(inc_path))
 vpath %.o $(OBJDIR)
 
 .PHONY: all
-all: $(appname).so put
+all: $(appname).so
+
+.PHONY: install
+install: $(appname).so
+	$(Q) echo "Need root access to install .so file in install location."
+	sudo cp $(appname).so $(install_location)
 
 $(appname).so: $(obj)
 	$(Q) $(LINK.c) -shared $^ $(CFLAGS) $(LDFLAGS) $(lds) -o $@
-
-.PHONY: put
-put:
-	cp $(appname).so /usr/local/OpenCL/vendors/max
 
 .PHONY: clean
 clean:

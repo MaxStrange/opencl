@@ -94,6 +94,7 @@ _clGetPlatformInfo(
 	size_t* param_sz_ret
 ) 
 {
+    return CL_SUCCESS;
 #if 0
 	printcl( CL_DEBUG "clGetPlatformInfo");
 	

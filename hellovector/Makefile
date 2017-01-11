@@ -41,16 +41,16 @@ OS                                := $(shell uname)
 ifeq ($(OS), Darwin)
     LDFLAGS                           += -framework OpenCL
 else
-    browndeer                         := /usr/local/browndeer
-    lds                               += OpenCL
-    lds                               += ocl
-    lds                               += stdcl
+    #browndeer                         := /usr/local/browndeer
+    #lds                               += OpenCL
+    #lds                               += ocl
+    #lds                               += stdcl
     #lds                               += coprthr
     #lds                               += coprthrcc
     lds                               += dl
     lds                               += eocl
-    inc_path                          += $(browndeer)/include
-    lib_path                          += $(browndeer)/lib
+    #inc_path                          += $(browndeer)/include
+    #lib_path                          += $(browndeer)/lib
     lib_path                          += /usr/local/OpenCL/vendors/max
 endif
 
