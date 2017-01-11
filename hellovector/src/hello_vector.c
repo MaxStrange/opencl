@@ -73,6 +73,28 @@ int main(void)
     #endif
     handle_error_GetDeviceIDs(err, true, true);
 
+    //Display the information found about this device
+    cl_uint addrsz;
+    clGetDeviceInfo(device_id, CL_DEVICE_ADDRESS_BITS, sizeof(cl_uint), &addrsz,
+            NULL);
+    size_t exten_len;
+    clGetDeviceInfo(device_id, CL_DEVICE_EXTENSIONS, 0, NULL, &exten_len);
+    char *extensions = (char *)malloc(exten_len * sizeof(char));
+    clGetDeviceInfo(device_id, CL_DEVICE_EXTENSIONS, exten_len * sizeof(char),
+            extensions, NULL);
+    cl_uint maxcompute;
+    clGetDeviceInfo(device_id, CL_DEVICE_MAX_COMPUTE_UNITS, sizeof(cl_uint),
+            &maxcompute, NULL);
+    size_t name_len;
+    clGetDeviceInfo(device_id, CL_DEVICE_NAME, 0, NULL, &name_len);
+    char *dev_name = (char *)malloc(name_len * sizeof(char));
+    clGetDeviceInfo(device_id, CL_DEVICE_NAME, name_len * sizeof(char),
+            dev_name, NULL);
+    printf("Found device: %s with address width %u, max compute units of %u, and "\
+            "extensions %s.\n", dev_name, addrsz, maxcompute, extensions);
+    free(dev_name);
+    free(extensions);
+
     //Create a context that has the properties of the platform,
     //is made of one device, the device is specified in device_id,
     //No callback function (and no parameters to the callback function)
