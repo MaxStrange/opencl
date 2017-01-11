@@ -41,6 +41,7 @@ _clCreateCommandQueue(
 	cl_int* err_ret
 )
 {
+#if 0
 	printcl( CL_DEBUG "clCreateCommandQueue");
 
 	if (__invalid_context(ctx)) 
@@ -73,17 +74,20 @@ _clCreateCommandQueue(
 	__success();
 
 	return(cmdq);
+#endif
 }
 
 cl_int 
 _clRetainCommandQueue( cl_command_queue cmdq )
 {
+#if 0
 	printcl( CL_DEBUG "clRetainCommandQueue");
 
 	if (!cmdq) return(CL_INVALID_COMMAND_QUEUE);
 
 	++cmdq->refc;
 
+#endif
 	return(CL_SUCCESS);
 }
 
@@ -92,6 +96,7 @@ _clRetainCommandQueue( cl_command_queue cmdq )
 cl_int 
 _clReleaseCommandQueue( cl_command_queue cmdq )
 {
+#if 0
 	printcl( CL_DEBUG "clReleaseCommandQueue");
 
 	if (__invalid_command_queue(cmdq)) return(CL_INVALID_COMMAND_QUEUE);
@@ -102,7 +107,7 @@ _clReleaseCommandQueue( cl_command_queue cmdq )
 
 		__free_command_queue(cmdq);
 	}
-
+#endif
 	return(CL_SUCCESS);
 }
 
@@ -117,6 +122,7 @@ _clGetCommandQueueInfo(
 	size_t* param_sz_ret
 )
 {
+#if 0
 	printcl( CL_DEBUG "clGetCommandQueueInfo");
 
 	if (!cmdq) return(CL_INVALID_COMMAND_QUEUE);
@@ -155,6 +161,7 @@ _clGetCommandQueueInfo(
 
 	}
 
+#endif
 	return(CL_SUCCESS);
 }
 
@@ -168,6 +175,7 @@ _clSetCommandQueueProperty(
 	cl_command_queue_properties* prop_old
 )
 {
+#if 0
 	printcl( CL_WARNING "clSetCommandQueueProperty: warning: unsupported");
 
 	if (__invalid_command_queue(cmdq)) return(CL_INVALID_COMMAND_QUEUE);
@@ -176,7 +184,7 @@ _clSetCommandQueueProperty(
 
 	if (enable)	cmdq->prop |= prop;
 	else cmdq->prop &= ~prop;
-
+#endif
 	return(CL_SUCCESS);
 }
 
@@ -215,6 +223,7 @@ clSetCommandQueueProperty( cl_command_queue, cl_command_queue_properties,
 
 void __do_create_command_queue( cl_command_queue cmdq ) 
 {
+#if 0
 	printcl( CL_DEBUG "__do_create_command_queue: dev=%p",cmdq->devid->codev);
 
 	__do_create_command_queue_1( cmdq->devid->codev );
@@ -228,30 +237,37 @@ void __do_create_command_queue( cl_command_queue cmdq )
 	cmdq->devnum = n;
 
 	printcl( CL_DEBUG "__do_create_command_queue: devnum=%d",n);
+#endif
 }
 
 
 
 void __do_release_command_queue( cl_command_queue cmdq ) 
 {
+#if 0
 	__do_release_command_queue_1(cmdq->devid->codev);
+#endif
 }
 
 
 
 void __do_enqueue_cmd( cl_command_queue cmdq, cl_event ev ) 
 {
+#if 0
 	ev->ev1->cmd = ev->cmd;
 	__do_enqueue_cmd_1( cmdq->devid->codev, ev->ev1);
 	ev->cmdq = cmdq;
 	ev->dev = cmdq->devid->codev;
 	__retain_event(ev);
+#endif
 }
 
 
 void __do_finish( cl_command_queue cmdq )
 {
+#if 0
 	__do_finish_1( cmdq->devid->codev );
+#endif
 }
 
 

@@ -42,6 +42,7 @@ _clCreateKernel(
 	 cl_int* err_ret
 )
 {
+#if 0
 	printcl( CL_DEBUG "clCreateKernel");
 
 	if (__invalid_program(prg)) __error_return(CL_INVALID_PROGRAM,cl_kernel);
@@ -74,6 +75,7 @@ _clCreateKernel(
 	__success();
 
 	return((cl_kernel)krn);
+#endif
 }
 
 
@@ -85,6 +87,7 @@ _clCreateKernelsInProgram(
 	 cl_uint* nkrn_ret
 )
 {
+#if 0
 	printcl( CL_DEBUG "clCreateKernelsInProgram");
 
 	if (__invalid_program(prg)) return(CL_INVALID_PROGRAM);
@@ -122,12 +125,14 @@ _clCreateKernelsInProgram(
 	}
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
 cl_int 
 _clRetainKernel( cl_kernel krn )
 {
+#if 0
 	printcl( CL_DEBUG "clRetainKernel");
 
 	if (__invalid_kernel(krn)) return(CL_INVALID_KERNEL);
@@ -135,12 +140,14 @@ _clRetainKernel( cl_kernel krn )
 	__retain_kernel(krn);
 	
 	return(CL_SUCCESS);
+#endif
 }
 
 
 cl_int 
 _clReleaseKernel( cl_kernel krn )
 {
+#if 0
 	printcl( CL_DEBUG "clReleaseKernel");
 
 	if (__invalid_kernel(krn)) return(CL_INVALID_KERNEL);
@@ -148,6 +155,7 @@ _clReleaseKernel( cl_kernel krn )
 	__release_kernel(krn);
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
@@ -159,6 +167,7 @@ _clSetKernelArg(
 	 const void* arg_val
 )
 {
+#if 0
 	printcl( CL_DEBUG "clSetKernelArg");
 
 	if (__invalid_kernel(krn)) return(CL_INVALID_KERNEL);
@@ -173,6 +182,7 @@ _clSetKernelArg(
 	cl_uint err = (cl_uint)__do_set_kernel_arg(krn,argn,arg_sz,arg_val);
 
 	return((err==0)?CL_SUCCESS:err);
+#endif
 }
 
 
@@ -185,7 +195,7 @@ _clGetKernelInfo(
 	 size_t* param_sz_ret
 )
 {
-
+#if 0
 	if (__invalid_kernel(krn)) return(CL_INVALID_KERNEL);
 
 	size_t sz;
@@ -232,6 +242,7 @@ _clGetKernelInfo(
 	}
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
@@ -245,6 +256,7 @@ _clGetKernelWorkGroupInfo(
 	 size_t* param_sz_ret
 )
 {
+#if 0
 	printcl( CL_WARNING "clGetKernelWorkGroupInfo: warning: unsupported");
 
 printcl( CL_WARNING "clGetKernelWorkGroupInfo: krn %p",krn);
@@ -282,6 +294,7 @@ printcl( CL_WARNING "clGetKernelWorkGroupInfo: krn %p",krn);
 	}
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
@@ -321,36 +334,10 @@ clGetKernelWorkGroupInfo( cl_kernel krn, cl_device_id devid,
 	size_t* param_sz_ret)
 	__attribute__((alias("_clGetKernelWorkGroupInfo")));
 
-/* kernel.c
- *
- * Copyright (c) 2009-2010 Brown Deer Technology, LLC.  All Rights Reserved.
- *
- * This software was developed by Brown Deer Technology, LLC.
- * For more information contact info@browndeertechnology.com
- *
- * This program is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License version 3 (LGPLv3)
- * as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-/* DAR */
-
-#include <CL/cl.h>
-
-#include "xcl_structs.h"
-#include "printcl.h"
-
 
 void __do_create_kernel(cl_kernel krn, cl_uint k) 
 {
+#if 0
 	int i,idev;
 
 	cl_program prg = krn->prg;
@@ -397,6 +384,7 @@ void __do_create_kernel(cl_kernel krn, cl_uint k)
                 i,krn->krn1[idev]->prg1->karg_sz[k][i]);
         }
 	}
+#endif
 }
 
 void __do_release_kernel(cl_kernel krn) {}
@@ -406,6 +394,7 @@ int __do_set_kernel_arg(
 	cl_kernel krn, cl_uint argn, size_t arg_sz, const void* arg_val 
 )
 {
+#if 0
 	struct coprthr_mem* mem1;
 
 	/* resolve arg_val for all devices to compensate for opencl design mistake */
@@ -444,7 +433,6 @@ int __do_set_kernel_arg(
 		}
 
 		if (err) return err;
-
 	}
 
 #if(0)
@@ -554,6 +542,6 @@ int __do_set_kernel_arg(
 #endif
 
 	return(CL_SUCCESS);
-
+#endif
 }
 

@@ -47,6 +47,7 @@ _clCreateContext(
 	cl_int* err_ret
 )
 {
+#if 0
 	printcl( CL_DEBUG "clCreateContext");
 
 	size_t sz;
@@ -91,8 +92,6 @@ _clCreateContext(
 		ctx->pfn_notify = pfn_notify;
 		ctx->user_data = user_data;
 
-//		__do_create_context(ctx);
-
 		ctx->refc = 1;
 
 	} else __error_return(CL_OUT_OF_HOST_MEMORY,cl_context);;
@@ -100,6 +99,7 @@ _clCreateContext(
 	__success();
 
 	return(ctx);
+#endif
 }
 
 
@@ -113,6 +113,7 @@ _clCreateContextFromType(
 	cl_int* err_ret	
 )
 {
+#if 0
 	printcl( CL_DEBUG "clCreateContextFromType");
 
 	if (!pfn_notify && user_data) __error_return(CL_INVALID_VALUE,cl_context);
@@ -143,7 +144,6 @@ _clCreateContextFromType(
 
 	cl_uint n;
 
-//   __do_get_ndevices(platformid,&n);
    __do_get_ndevices(platformid,devtype,&n);
 
 	printcl( CL_DEBUG "clCreateContextFromType: platform ndev=%d",n);
@@ -192,8 +192,6 @@ _clCreateContextFromType(
 		ctx->pfn_notify = pfn_notify;
 		ctx->user_data = user_data;
 
-//		__do_create_context(ctx);
-
 		ctx->refc = 1;
 
 	} else {
@@ -207,12 +205,14 @@ _clCreateContextFromType(
 	__success();
 
 	return(ctx);
+#endif
 }
 
 
 cl_int 
 _clRetainContext(cl_context	ctx )
 {
+#if 0
 	printcl( CL_DEBUG "clRetainContext");
 
 	if (__invalid_context(ctx)) return(CL_INVALID_CONTEXT);
@@ -220,25 +220,27 @@ _clRetainContext(cl_context	ctx )
 	++ctx->refc;
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
 cl_int 
 _clReleaseContext(cl_context ctx )
 {
+#if 0
 	printcl( CL_DEBUG "clReleaseContext");
 
 	if (__invalid_context(ctx)) return(CL_INVALID_CONTEXT);
 
 	if (--ctx->refc == 0) {
 
-//		__do_release_context(ctx);
 
 		__free_context(ctx);
 
 	}
 
 	return(CL_SUCCESS);
+#endif
 }
 
 	 
@@ -248,7 +250,7 @@ _clGetContextInfo(
 	size_t param_sz, void* param_val, size_t* param_sz_ret
 )
 {
-
+#if 0
 	if (__invalid_context(ctx)) return(CL_INVALID_CONTEXT);
 
 	size_t sz;
@@ -284,6 +286,7 @@ _clGetContextInfo(
 	}
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
@@ -292,6 +295,7 @@ static int __find_context_property(
 	cl_context_properties* props, cl_context_properties prop, void* val 
 )
 {
+#if 0
 	int n = 0;
 
 	if (!props) return (0);
@@ -320,6 +324,7 @@ static int __find_context_property(
 		" cl_context_properties list not terminated");
 
 	return(0);
+#endif
 }
 
 

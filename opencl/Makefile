@@ -27,6 +27,7 @@ WARNING                           += -Wno-unused-local-typedefs
 WARNING                           += -Wno-unused-variable
 WARNING                           += -Wno-unused-function
 WARNING                           += -Wno-unused-private-field
+WARNING                           += -Wno-return-type
 
 OPTIMIZATION                      ?= -O0 -ggdb3
 

@@ -56,6 +56,7 @@ _clGetDeviceIDs(
 	cl_uint* ndev_ret
 )
 {
+#if 0
 	if (__invalid_platform_id(platformid)) return(CL_INVALID_PLATFORM);
 
 	if (ndev == 0 && devices) return(CL_INVALID_VALUE);
@@ -76,6 +77,7 @@ _clGetDeviceIDs(
 	__do_get_devices(platformid,devtype,n,devices);
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
@@ -88,6 +90,7 @@ _clGetDeviceInfo(
 	size_t* param_sz_ret
 ) 
 {
+#if 0
 	if (__invalid_device_id(devid)) return(CL_INVALID_DEVICE);
 
 	size_t sz;
@@ -459,6 +462,7 @@ _clGetDeviceInfo(
 	}
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
@@ -487,6 +491,7 @@ void __do_discover_devices(
 	int flag
 )
 {
+#if 0
 	int i;
 
 	printcl( CL_DEBUG "__do_discover_devices %p",*p_dtab);
@@ -530,6 +535,7 @@ void __do_discover_devices(
 	}
 
 	printcl( CL_DEBUG "__do_discover_devices ndevices %d",*p_ndevices);
+#endif
 }
 
 
@@ -537,6 +543,7 @@ void __do_get_ndevices(
 	cl_platform_id platformid, cl_device_type devtype, cl_uint* ndev 
 )
 {
+#if 0
 	unsigned int ndevices = __resolve_platformid(platformid,ndevices);
 	struct _cl_device_id* dtab = __resolve_platformid(platformid,dtab);
 
@@ -554,6 +561,7 @@ void __do_get_ndevices(
 	printcl( CL_DEBUG "n = %d",n);
 
 	*ndev = n;
+#endif
 }
 
 
@@ -562,6 +570,7 @@ void __do_get_devices(
 	cl_platform_id platformid, cl_device_type devtype, 
 	cl_uint ndev, cl_device_id* devices)
 {
+#if 0
 	unsigned int ndevices = __resolve_platformid(platformid,ndevices);
 	struct _cl_device_id* dtab = __resolve_platformid(platformid,dtab);
 
@@ -571,13 +580,14 @@ void __do_get_devices(
 	for(devnum=0;devnum<ndevices;devnum++) 
 		if (n<ndev && dtab[devnum].ocldevinfo->devtype & devtype) 
 			devices[n++] = &__resolve_platformid(platformid,dtab[devnum]);
-
+#endif
 }
 
 
 void __do_discover_opencl_device_info_x86_64(
 	struct coprthr_device* dev, struct opencl_device_info* ocldevinfo )
 {
+#if 0
 	*ocldevinfo = (struct opencl_device_info){
 		.devtype = CL_DEVICE_TYPE_CPU,
 		.vendorid = 0,
@@ -629,12 +639,14 @@ void __do_discover_opencl_device_info_x86_64(
 
 	ocldevinfo->compiler_avail 
 		= (dev->devstate->compiler_avail==0)? CL_FALSE : CL_TRUE;
+#endif
 }
 
 
 void __do_discover_opencl_device_info_e32(
 	struct coprthr_device* dev, struct opencl_device_info* ocldevinfo )
 {
+#if 0
 	*ocldevinfo = (struct opencl_device_info){
 		.devtype = CL_DEVICE_TYPE_ACCELERATOR,
 		.vendorid = 0,
@@ -688,6 +700,6 @@ void __do_discover_opencl_device_info_e32(
 		= (dev->devstate->compiler_avail==0)? CL_FALSE : CL_TRUE;
 
 	ocldevinfo->max_compute_units = dev->devinfo->max_compute_units;
-
+#endif
 }
 

@@ -36,6 +36,7 @@ _clWaitForEvents(
 	 const cl_event* evlist
 )
 {
+#if 0
 	printcl( CL_DEBUG "clWaitForEvents");
 
 	if (nev == 0) return(CL_INVALID_VALUE);
@@ -56,6 +57,7 @@ _clWaitForEvents(
 		}
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
@@ -68,6 +70,7 @@ _clGetEventInfo(
 	 size_t* param_sz_ret
 )
 {
+#if 0
 	printcl( CL_WARNING "clGetEventInfo: warning: unsupported");
 
 	if (__invalid_event(ev)) return(CL_INVALID_EVENT);
@@ -106,12 +109,14 @@ _clGetEventInfo(
 	}
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
 cl_int
 _clRetainEvent( cl_event ev )
 {
+#if 0
 	printcl( CL_DEBUG "clRetainEvent");
 
 	if (__invalid_event(ev)) return(CL_INVALID_EVENT);
@@ -121,12 +126,14 @@ _clRetainEvent( cl_event ev )
 	__unlock_event(ev);
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
 cl_int
 _clReleaseEvent( cl_event ev )
 {
+#if 0
 	printcl( CL_DEBUG "clReleaseEvent");
 
 	if (__invalid_event(ev)) return(CL_INVALID_EVENT);
@@ -139,6 +146,7 @@ _clReleaseEvent( cl_event ev )
 	/* unlock implicit in __release_event() -DAR */
 
 	return(CL_SUCCESS);
+#endif
 }
 
 

@@ -99,6 +99,7 @@ _clEnqueueReadBuffer(
 	cl_event* event
 )
 {
+#if 0
 	printcl( CL_DEBUG "clEnqueueReadBuffer");
 
 	if (__invalid_command_queue(cmdq)) return(CL_INVALID_COMMAND_QUEUE);
@@ -148,8 +149,8 @@ _clEnqueueReadBuffer(
 	if (block) __wait(ev);
 #endif
 
-
 	return(CL_SUCCESS);
+#endif
 }
 
                             
@@ -166,6 +167,7 @@ _clEnqueueWriteBuffer(
    cl_event* event
 )
 {
+#if 0
 	printcl( CL_DEBUG "clEnqueueWriteBuffer");
 
 	if (__invalid_command_queue(cmdq)) return(CL_INVALID_COMMAND_QUEUE);
@@ -207,8 +209,8 @@ _clEnqueueWriteBuffer(
 	if (block) __wait(ev);
 #endif
 
-
 	return(CL_SUCCESS);
+#endif
 }
 
                             
@@ -225,6 +227,7 @@ _clEnqueueCopyBuffer(
 	cl_event* event 
 )
 {
+#if 0
 	printcl( CL_WARNING "clEnqueueCopyBuffer: warning: unsupported");
 
 	if (__invalid_command_queue(cmdq)) return(CL_INVALID_COMMAND_QUEUE);
@@ -279,6 +282,7 @@ _clEnqueueCopyBuffer(
 #endif
 
 	return(CL_SUCCESS);
+#endif
 }
 
                             
@@ -297,6 +301,7 @@ _clEnqueueReadImage(
 	cl_event* event
 )
 {
+#if 0
 	printcl( CL_WARNING "clEnqueueReadImage: warning: unsupported");
 
 	if (__invalid_command_queue(cmdq)) return(CL_INVALID_COMMAND_QUEUE);
@@ -337,8 +342,8 @@ _clEnqueueReadImage(
 	if (block) __wait(ev);
 #endif
 
-
 	return(CL_SUCCESS);
+#endif
 }
 
                             
@@ -358,6 +363,7 @@ _clEnqueueWriteImage(
 	cl_event* event
 )
 {
+#if 0
 	printcl( CL_WARNING "clEnqueueWriteImage: warning: unsupported");
 
 	if (__invalid_command_queue(cmdq)) return(CL_INVALID_COMMAND_QUEUE);
@@ -400,6 +406,7 @@ _clEnqueueWriteImage(
 #endif
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
@@ -417,6 +424,7 @@ _clEnqueueCopyImage(
 	cl_event* event
 )
 {
+#if 0
 	printcl( CL_WARNING "clEnqueueCopyImage: warning: unsupported");
 
 	if (__invalid_command_queue(cmdq)) return(CL_INVALID_COMMAND_QUEUE);
@@ -462,6 +470,7 @@ _clEnqueueCopyImage(
 #endif
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
@@ -479,6 +488,7 @@ _clEnqueueCopyImageToBuffer(
 	cl_event* event
 )
 {
+#if 0
 	printcl( CL_WARNING "clEnqueueCopyImageToBuffer: warning: unsupported");
 
 	if (__invalid_command_queue(cmdq)) return(CL_INVALID_COMMAND_QUEUE);
@@ -523,8 +533,8 @@ _clEnqueueCopyImageToBuffer(
 	__wait(ev);
 #endif
 
-
 	return(CL_SUCCESS);
+#endif
 }
 
 
@@ -542,6 +552,7 @@ _clEnqueueCopyBufferToImage(
 	cl_event* event 
 )
 {
+#if 0
 	printcl( CL_WARNING "clEnqueueCopyBufferToImage: warning: unsupported");
 
 	if (__invalid_command_queue(cmdq)) return(CL_INVALID_COMMAND_QUEUE);
@@ -586,8 +597,8 @@ _clEnqueueCopyBufferToImage(
 	__wait(ev);
 #endif
 
-
 	return(CL_SUCCESS);
+#endif
 }
 
 
@@ -606,6 +617,7 @@ _clEnqueueMapBuffer(
 	cl_int* err_ret
 )
 {
+#if 0
 	printcl( CL_WARNING "clEnqueueMapBuffer: warning: unsupported");
 
 	void* ptr = 0;
@@ -656,6 +668,7 @@ _clEnqueueMapBuffer(
 	__success();
 
 	return(ptr);
+#endif
 }
 
 
@@ -675,6 +688,7 @@ _clEnqueueMapImage(
 	cl_int* err_ret
 )
 {
+#if 0
 	printcl( CL_WARNING "clEnqueueMapImage: warning: unsupported");
 
 	void* ptr = 0;
@@ -721,6 +735,7 @@ _clEnqueueMapImage(
 	__success();
 
 	return(ptr);
+#endif
 }
 
 
@@ -734,6 +749,7 @@ _clEnqueueUnmapMemObject(
 	cl_event* event
 )
 {
+#if 0
 	printcl( CL_WARNING "clEnqueueUnmapMemObject: warning: unsupported");
 
 	if (__invalid_command_queue(cmdq)) return(CL_INVALID_COMMAND_QUEUE);
@@ -773,6 +789,7 @@ _clEnqueueUnmapMemObject(
 #endif
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
@@ -789,6 +806,7 @@ _clEnqueueNDRangeKernel(
 	cl_event* event
 )
 {
+#if 0
 	int i;
 	
 	printcl( CL_DEBUG "clEnqueueNDRangeKernel gwo=%p",global_work_offset);
@@ -844,6 +862,7 @@ _clEnqueueNDRangeKernel(
 #endif
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
@@ -856,6 +875,7 @@ _clEnqueueTask(
 	cl_event* event
 )
 {
+#if 0
 	printcl( CL_WARNING "clEnqueueTask: warning: unsupported");
 
 	if (__invalid_command_queue(cmdq)) return(CL_INVALID_COMMAND_QUEUE);
@@ -894,6 +914,7 @@ _clEnqueueTask(
 #endif
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
@@ -911,11 +932,13 @@ _clEnqueueNativeKernel(
 	cl_event* event
 )
 {
+#if 0
 	printcl( CL_WARNING "clEnqueueNativeKernel: warning: unsupported");
 
 	if (__invalid_command_queue(cmdq)) return(CL_INVALID_COMMAND_QUEUE);
 
 	return(CL_ENOTSUP);
+#endif
 }
 
 
@@ -925,6 +948,7 @@ _clEnqueueMarker(
    cl_event* event
 )
 {
+#if 0
 	printcl( CL_DEBUG "clEnqueueMarker");
 
 	if (__invalid_command_queue(cmdq)) return(CL_INVALID_COMMAND_QUEUE);
@@ -953,6 +977,7 @@ _clEnqueueMarker(
 #endif
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
@@ -963,15 +988,18 @@ _clEnqueueWaitForEvents(
 	const cl_event* waitlist
 )
 {
+#if 0
 	printcl( CL_WARNING "clEnqueueWaitForEvents: warning: unsupported");
 
 	return(CL_ENOTSUP);
+#endif
 }
 
 
 cl_int 
 _clEnqueueBarrier( cl_command_queue cmdq )
 {
+#if 0
 	printcl( CL_DEBUG "clEnqueueBarrier");
 
 	if (__invalid_command_queue(cmdq)) return(CL_INVALID_COMMAND_QUEUE);
@@ -998,6 +1026,7 @@ _clEnqueueBarrier( cl_command_queue cmdq )
 #endif
 
 	return(CL_SUCCESS);
+#endif
 }
 
 
@@ -1115,9 +1144,11 @@ clEnqueueBarrier( cl_command_queue cmdq )
 
 void __do_release_event(cl_event ev) 
 {
+#if 0
 	__do_release_event_1(ev->ev1);
 	ev->cmdq = 0;
 	ev->dev = 0;
+#endif
 }
 
 
@@ -1131,8 +1162,10 @@ void __do_set_cmd_read_buffer(
 	cl_event ev, cl_mem src, size_t src_offset, size_t len, void* dst
 )
 {
+#if 0
 	unsigned int n = ev->cmdq->devnum;
 	__do_set_cmd_read_buffer_1( ev->ev1, src->mem1[n], src_offset, len, dst); 
+#endif
 }
 
 
@@ -1140,8 +1173,10 @@ void __do_set_cmd_write_buffer(
 	cl_event ev, cl_mem dst, size_t dst_offset, size_t len, const void* src
 )
 { 
+#if 0
 	unsigned int n = ev->cmdq->devnum;
 	__do_set_cmd_write_buffer_1( ev->ev1, dst->mem1[n], dst_offset, len, src); 
+#endif
 }
 
 
@@ -1150,9 +1185,11 @@ void __do_set_cmd_copy_buffer(
 	size_t src_offset, size_t dst_offset, size_t len 
 )
 { 
+#if 0
 	unsigned int n = ev->cmdq->devnum;
 	__do_set_cmd_copy_buffer_1( ev->ev1, src->mem1[n], dst->mem1[n], 
 		src_offset, dst_offset, len);
+#endif
 }
 
 
@@ -1161,9 +1198,11 @@ void __do_set_cmd_read_image(
 	size_t row_pitch, size_t slice_pitch, void* dst
 )
 {
+#if 0
 	unsigned int n = ev->cmdq->devnum;
 	__do_set_cmd_read_image_1( ev->ev1, src->mem1[n], src_origin, region, 
 		row_pitch, slice_pitch, dst);
+#endif
 }
 
 
@@ -1175,9 +1214,11 @@ void __do_set_cmd_write_image(
 	const void* src
 )
 {
+#if 0
 	unsigned int n = ev->cmdq->devnum;
 	__do_set_cmd_write_image_1( ev->ev1, dst->mem1[n], dst_origin, 
 		region, row_pitch, slice_pitch, src);
+#endif
 }
 
 
@@ -1188,9 +1229,11 @@ void __do_set_cmd_copy_image(
 	const size_t* dst_origin, const size_t* region
 )
 {
+#if 0
 	unsigned int n = ev->cmdq->devnum;
 	__do_set_cmd_copy_image_1(ev->ev1,src->mem1[n],dst->mem1[n],src_origin,
 		dst_origin,region);
+#endif
 }
 
 
@@ -1201,9 +1244,11 @@ void __do_set_cmd_copy_image_to_buffer(
 	size_t dst_offset
 )
 {
+#if 0
 	unsigned int n = ev->cmdq->devnum;
 	__do_set_cmd_copy_image_to_buffer_1( ev->ev1, src->mem1[n], dst->mem1[n], 
 		src_origin, region, dst_offset);
+#endif
 }
 
 
@@ -1214,9 +1259,11 @@ void __do_set_cmd_copy_buffer_to_image(
 	const size_t* dst_origin, const size_t* region
 )
 {
+#if 0
 	unsigned int n = ev->cmdq->devnum;
 	__do_set_cmd_copy_buffer_to_image_1( ev->ev1, src->mem1[n], dst->mem1[n],
 		src_offset, dst_origin, region);
+#endif
 }
 
 
@@ -1227,8 +1274,10 @@ void __do_set_cmd_map_buffer(
 	void* pp
 )
 {
+#if 0
 	unsigned int n = ev->cmdq->devnum;
 	__do_set_cmd_map_buffer_1(ev->ev1, membuf->mem1[n], flags, offset, len, pp); 
+#endif
 }
 
 
@@ -1240,9 +1289,11 @@ void __do_set_cmd_map_image(
 	void* p
 )
 {
+#if 0
 	unsigned int n = ev->cmdq->devnum;
 	__do_set_cmd_map_image_1( ev->ev1, image->mem1[n], flags, origin, region, 
 		row_pitch, slice_pitch, p);
+#endif
 }
 
 
@@ -1251,8 +1302,10 @@ void __do_set_cmd_unmap_memobj(
 	cl_mem memobj, void* p
 )
 {
+#if 0
 	unsigned int n = ev->cmdq->devnum;
 	__do_set_cmd_unmap_memobj_1( ev->ev1, memobj->mem1[n], p); 
+#endif
 }
 
 
@@ -1266,25 +1319,30 @@ void __do_set_cmd_ndrange_kernel(
 	const size_t* local_work_size
 )
 {
+#if 0
 	unsigned int n = ev->cmdq->devnum;
 	__do_set_cmd_ndrange_kernel_1( ev->ev1, krn->krn1[n], work_dim, 
 		global_work_offset, global_work_size, local_work_size);
+#endif
 }
 
 void __do_set_cmd_task( cl_event ev, cl_kernel krn)
 { 
+#if 0
 	unsigned int n = ev->cmdq->devnum;
 	__do_set_cmd_task_1( ev->ev1, krn->krn1[n]); 
+#endif
 }
 
 
 void __do_wait_for_events( cl_uint nev, const cl_event* evlist)
 {
+#if 0
 	int i;
 	cl_event ev;
 
 	for(i=0;i<nev;i++) 
 		__do_wait_1(evlist[i]->ev1);
-
+#endif
 }
 
