@@ -50,10 +50,14 @@ vpath %.h $(subst $(space),:,$(inc_path))
 vpath %.o $(OBJDIR)
 
 .PHONY: all
-all: $(appname).so
+all: $(appname).so put
 
 $(appname).so: $(obj)
 	$(Q) $(LINK.c) -shared $^ $(CFLAGS) $(LDFLAGS) $(lds) -o $@
+
+.PHONY: put
+put:
+	cp $(appname).so /usr/local/OpenCL/vendors/max
 
 .PHONY: clean
 clean:

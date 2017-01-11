@@ -51,7 +51,7 @@ else
     lds                               += eocl
     inc_path                          += $(browndeer)/include
     lib_path                          += $(browndeer)/lib
-    lib_path                          += $(rootdir)/../opencl
+    lib_path                          += /usr/local/OpenCL/vendors/max
 endif
 
 CFLAGS                            := $(addprefix -I, $(inc_path))
