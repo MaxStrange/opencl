@@ -58,7 +58,6 @@ int main(void)
     cl_int err;
 
     //Bind to platform
-    printf("Getting the platform ID...\n");
     cl_platform_id platform;
     err = clGetPlatformIDs(1, &platform, NULL);
     handle_error_GetPlatformIDs(err, true, true);
@@ -66,7 +65,6 @@ int main(void)
     //Get ID for the device which must be an accelerator and there is only one
     //of them.
     cl_device_id device_id;
-    printf("Getting the device ID...\n");
     #ifdef __APPLE__
     err = clGetDeviceIDs(platform, CL_DEVICE_TYPE_GPU, 1, &device_id, NULL);
     #else
@@ -78,7 +76,6 @@ int main(void)
     //Create a context that has the properties of the platform,
     //is made of one device, the device is specified in device_id,
     //No callback function (and no parameters to the callback function)
-    printf("Creating the context...\n");
     cl_context_properties props[] = {
         CL_CONTEXT_PLATFORM, (cl_context_properties)platform, 0
     };
