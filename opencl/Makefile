@@ -28,6 +28,7 @@ WARNING                           += -Wno-unused-variable
 WARNING                           += -Wno-unused-function
 WARNING                           += -Wno-unused-private-field
 WARNING                           += -Wno-return-type
+WARNING                           += -Wno-deprecated-declarations
 
 OPTIMIZATION                      ?= -O0 -ggdb3
 

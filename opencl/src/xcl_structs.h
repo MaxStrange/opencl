@@ -31,7 +31,7 @@
 
 #include "printcl.h"
 
-
+#include "icd_dispatch.h"
 
 #define CL_ENOTSUP	-255
 #define __CLMAXSTR_LEN 1023
@@ -42,7 +42,7 @@
  * can lead to lockups with bad CL code -DAR */
 
 #define __free(p) do { if (p) { free(p); p=0; } } while(0)
-
+#if 0
 /* 
  * platform 
  */
@@ -226,7 +226,7 @@ struct _cl_sampler {
     cl_addressing_mode amode;
     cl_filter_mode fmode;
 };
-
+#endif
 /* 
  * locators
  */
