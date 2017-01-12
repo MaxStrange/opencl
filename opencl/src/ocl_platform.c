@@ -98,7 +98,7 @@ _clGetPlatformInfo(
 ) 
 {
     if (platformid == NULL)
-        return CL_SUCCESS;//return CL_INVALID_PLATFORM;
+        return CL_INVALID_PLATFORM;
 
     perror("blah.\n");
     char *info = NULL;

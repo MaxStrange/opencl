@@ -65,6 +65,7 @@ int main(void)
     err = clGetPlatformIDs(5, platforms, NULL);
     handle_error_GetPlatformIDs(err, true, true);
     cl_platform_id platform = platforms[0];
+    printf("About to call clGetDeviceIDs.\n");
 
     //Get ID for the device which must be an accelerator and there is only one
     //of them.
