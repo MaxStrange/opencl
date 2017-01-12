@@ -25,8 +25,9 @@
 #define min(a,b) ((a<b)?a:b)
 #endif
 
-
 // ICD stuff 
+
+//extern void * __icd_call_vector;
 static struct opencl_device_info device_info;
 
 static struct _cl_device_id device_id;
@@ -42,6 +43,8 @@ clIcdGetPlatformIDsKHR(
 	cl_uint *nplatforms_ret
 )
 {
+    perror("clIcdGetPlatformIDsKHR called.\n");
+
     if (nplatforms == 0 && platforms !=NULL)
         return CL_INVALID_VALUE;
     else if (platforms == NULL && nplatforms_ret == NULL)
@@ -49,10 +52,10 @@ clIcdGetPlatformIDsKHR(
 
     initialize_dev_info();
 
-    device_id._reserved = (void *) __icd_call_vector;
+    device_id.context = NULL;//(void *) __icd_call_vector;
     device_id.ocldevinfo = &device_info;
 
-    platform_id._reserved = (void *) __icd_call_vector;
+    platform_id.context = NULL;//(void *) __icd_call_vector;
     platform_id.profile = "<profile>";
     platform_id.version = VERSION_STRING;
     platform_id.name = "eocl";
@@ -69,6 +72,8 @@ clIcdGetPlatformIDsKHR(
     {
         *nplatforms_ret = 1;
     }
+
+    perror("Successful call to clIcdGetPlatformIDsKHR.\n");
 
     return CL_SUCCESS;
 }
@@ -127,6 +132,8 @@ static void initialize_dev_info(void)
 void*
 clGetExtensionFunctionAddress( const char* funcname )
 {
+    perror("clGetExtensionFunctionAddress called.\n");
+
     if (funcname == NULL)
         return NULL;
     else if (!strcmp("clIcdGetPlatformIDsKHR", funcname))

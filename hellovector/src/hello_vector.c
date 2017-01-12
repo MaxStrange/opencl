@@ -57,9 +57,14 @@ int main(void)
     cl_int err;
 
     //Bind to platform
-    cl_platform_id platform;
-    err = clGetPlatformIDs(1, &platform, NULL);
+    cl_uint num_platforms;
+    clGetPlatformIDs(0, NULL, &num_platforms);
+    printf("Found: %u platforms.\n", num_platforms);
+
+    cl_platform_id platforms[5];
+    err = clGetPlatformIDs(5, platforms, NULL);
     handle_error_GetPlatformIDs(err, true, true);
+    cl_platform_id platform = platforms[0];
 
     //Get ID for the device which must be an accelerator and there is only one
     //of them.
@@ -72,6 +77,7 @@ int main(void)
     #endif
     handle_error_GetDeviceIDs(err, true, true);
 
+#if 0
     //Display the information found about this device
     cl_uint addrsz;
     clGetDeviceInfo(device_id, CL_DEVICE_ADDRESS_BITS, sizeof(cl_uint), &addrsz,
@@ -212,7 +218,7 @@ int main(void)
     double total_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
     printf("Total time taken for addition of %u random numbers: %f seconds\n",
             VECTOR_SIZE, total_time);
-
+#endif
     return 0;
 }
 

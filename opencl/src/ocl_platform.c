@@ -57,6 +57,9 @@ _clGetPlatformIDs(
 	cl_uint* nplatforms_ret
 )
 {
+    if (nplatforms_ret != NULL)
+        *nplatforms_ret = 5;
+    return CL_SUCCESS;
 #if 0
 	printcl( CL_DEBUG "clGetPlatformIDs");
 	
@@ -95,8 +98,9 @@ _clGetPlatformInfo(
 ) 
 {
     if (platformid == NULL)
-        return CL_INVALID_PLATFORM;
+        return CL_SUCCESS;//return CL_INVALID_PLATFORM;
 
+    perror("blah.\n");
     char *info = NULL;
     switch (param_name)
     {
@@ -117,12 +121,15 @@ _clGetPlatformInfo(
             break;
         case CL_PLATFORM_ICD_SUFFIX_KHR:
             info = "eocl";
+            perror("Called with CL_PLATFORM_ICD_SUFFIX_KHR.\n");
             break;
         default:
             return CL_INVALID_VALUE;
     }
 
     size_t len = strlen(info);
+
+    perror("Doing stuff.\n");
 
     if (param_val != NULL && param_sz < len)
         return CL_INVALID_VALUE;
@@ -132,6 +139,8 @@ _clGetPlatformInfo(
 
     if (param_val != NULL)
         strncpy((char *)param_val, info, param_sz);
+
+    perror("Success.\n");
 
     return CL_SUCCESS;
 }
