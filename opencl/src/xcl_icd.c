@@ -52,10 +52,10 @@ clIcdGetPlatformIDsKHR(
 
     initialize_dev_info();
 
-    device_id.context = NULL;//(void *) __icd_call_vector;
+    device_id.dispatch= NULL;//(void *) __icd_call_vector;
     device_id.ocldevinfo = &device_info;
 
-    platform_id.context = NULL;//(void *) __icd_call_vector;
+    platform_id.dispatch= NULL;//(void *) __icd_call_vector;
     platform_id.profile = "<profile>";
     platform_id.version = VERSION_STRING;
     platform_id.name = "eocl";

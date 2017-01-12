@@ -48,7 +48,7 @@
  */
 
 struct _cl_platform_id {
-    void* context;
+    void* dispatch;
     char* profile;
     char* version;
     char* name;
@@ -113,7 +113,7 @@ struct opencl_device_info {
 };
 
 struct _cl_device_id {
-    void* context;
+    void* dispatch;
     struct opencl_device_info* ocldevinfo;
 };
 
@@ -123,7 +123,7 @@ struct _cl_device_id {
  */
 
 struct _cl_context {
-    void* context;
+    void* dispatch;
     cl_uint refc;
     cl_context_properties* prop;
     cl_uint ndev;
@@ -137,7 +137,7 @@ struct _cl_context {
  */
 
 struct _cl_command_queue {
-    void* context;
+    void* dispatch;
     cl_uint refc;
     cl_context ctx;
     cl_device_id devid;
@@ -151,7 +151,7 @@ struct _cl_command_queue {
  */
 
 struct _cl_mem {
-    void* context;
+    void* dispatch;
     cl_context ctx;
     size_t sz;
     size_t width;
@@ -173,7 +173,7 @@ struct _cl_mapped_ptr_info {
  */
 
 struct _cl_program {
-    void* context;
+    void* dispatch;
     cl_uint refc;
     cl_context ctx;
     cl_uint ndev;
@@ -190,7 +190,7 @@ struct _cl_program {
  */
 
 struct _cl_kernel {
-    void* context;
+    void* dispatch;
     cl_uint refc;
     cl_context ctx;
     cl_program prg;
@@ -205,7 +205,7 @@ struct _cl_kernel {
  */
 
 struct _cl_event {
-    void* context;
+    void* dispatch;
     cl_uint refc;
     cl_context ctx;
     cl_command_queue cmdq;
@@ -219,7 +219,7 @@ struct _cl_event {
  */
 
 struct _cl_sampler {
-    void* context;
+    void* dispatch;
     cl_uint refc;
     cl_context ctx;
     cl_bool norm_coords;

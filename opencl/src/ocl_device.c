@@ -56,28 +56,23 @@ _clGetDeviceIDs(
 	cl_uint* ndev_ret
 )
 {
-#if 0
-	if (__invalid_platform_id(platformid)) return(CL_INVALID_PLATFORM);
+    if (platformid == NULL)
+        return CL_INVALID_PLATFORM;
+    else if (ndev == 0 && devices != NULL)
+        return CL_INVALID_VALUE;
+    else if (devices != NULL && ndev_ret != NULL)
+        return CL_INVALID_VALUE;
 
-	if (ndev == 0 && devices) return(CL_INVALID_VALUE);
+    cl_uint num_devs = platformid->ndevices;
+    if (num_devs == 0)
+        return CL_DEVICE_NOT_FOUND;
 
-	if (!devices && !ndev_ret) return(CL_INVALID_VALUE);
+    if (ndev_ret != NULL)
+        *ndev_ret = num_devs;
+    else
+        *devices = platformid->dtab;
 
-	
-	cl_uint n;
-
-	__do_get_ndevices(platformid,devtype,&n);
-
-	if (ndev_ret) *ndev_ret = n;
-
-	if (n == 0) return(CL_DEVICE_NOT_FOUND);
-
-	n = min(n,ndev);
-
-	__do_get_devices(platformid,devtype,n,devices);
-
-	return(CL_SUCCESS);
-#endif
+    return CL_SUCCESS;
 }
 
 
