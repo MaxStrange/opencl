@@ -94,69 +94,46 @@ _clGetPlatformInfo(
 	size_t* param_sz_ret
 ) 
 {
+    if (platformid == NULL)
+        return CL_INVALID_PLATFORM;
+
+    char *info = NULL;
+    switch (param_name)
+    {
+        case CL_PLATFORM_PROFILE:
+            info = platformid->profile;
+            break;
+        case CL_PLATFORM_VERSION:
+            info = platformid->version;
+            break;
+        case CL_PLATFORM_NAME:
+            info = platformid->name;
+            break;
+        case CL_PLATFORM_VENDOR:
+            info = platformid->vendor;
+            break;
+        case CL_PLATFORM_EXTENSIONS:
+            info = platformid->extensions;
+            break;
+        case CL_PLATFORM_ICD_SUFFIX_KHR:
+            info = "eocl";
+            break;
+        default:
+            return CL_INVALID_VALUE;
+    }
+
+    size_t len = strlen(info);
+
+    if (param_val != NULL && param_sz < len)
+        return CL_INVALID_VALUE;
+
+    if (param_sz_ret !=NULL)
+        *param_sz_ret = len;
+
+    if (param_val != NULL)
+        strncpy((char *)param_val, info, param_sz);
+
     return CL_SUCCESS;
-#if 0
-	printcl( CL_DEBUG "clGetPlatformInfo");
-	
-	if (__invalid_platform_id(platformid)) return(CL_INVALID_PLATFORM);
-
-	char* p;
-	size_t sz;
-
-	switch (param_name) {
-
-		case CL_PLATFORM_PROFILE:
-
-			__do_get_platform_profile(platformid,&p);
-
-			if (p) __case_get_param( strnlen(p,__CLMAXSTR_BUFSZ)+1,p);
-
-			break;
-
-		case CL_PLATFORM_VERSION:
-
-			__do_get_platform_version(platformid,&p);
-
-			if (p) __case_get_param( strnlen(p,__CLMAXSTR_BUFSZ)+1,p);
-
-			break;
-
-		case CL_PLATFORM_NAME:
-
-			__do_get_platform_name(platformid,&p);
-
-			if (p) __case_get_param( strnlen(p,__CLMAXSTR_BUFSZ)+1,p);
-
-			break;
-
-		case CL_PLATFORM_VENDOR:
-
-			__do_get_platform_vendor(platformid,&p);
-
-			if (p) __case_get_param( strnlen(p,__CLMAXSTR_BUFSZ)+1,p);
-
-			break;
-
-		case CL_PLATFORM_EXTENSIONS:
-
-			__do_get_platform_extensions(platformid,&p);
-
-			if (p) __case_get_param( strnlen(p,__CLMAXSTR_BUFSZ)+1,p);
-
-			break;
-
-		case CL_PLATFORM_ICD_SUFFIX_KHR:
-
-			if (p) p = (void*)__suffix_str;
-			break;
-
-		default:
-
-			return(CL_INVALID_VALUE);
-	}
-
-	return(CL_SUCCESS);
-#endif
 }
 
 

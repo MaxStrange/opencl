@@ -78,8 +78,8 @@ struct _cl_platform_id {
  */
 
 struct opencl_device_info {
-	cl_device_type devtype;
-	cl_uint vendorid;
+   cl_device_type devtype;
+   cl_uint vendorid;
    cl_uint max_compute_units;
    cl_uint max_wi_dim;
    size_t max_wi_sz[4];
@@ -129,20 +129,8 @@ struct opencl_device_info {
 
 struct _cl_device_id {
 	void* _reserved;
-	struct coprthr_device* codev;
 	struct opencl_device_info* ocldevinfo;
-	int dd;
 };
-
-#define __init_device_id(devid) do { \
-	(devid)->_reserved = (void*)__icd_call_vector; \
-	(devid)->dd = -1; \
-	} while(0)
-
-#define __invalid_device_id(devid) (!devid)
-
-#define __resolve_devid_ocldevinfo(d,m) ((d)->ocldevinfo->m)
-
 
 
 /* 

@@ -49,7 +49,7 @@
 #endif
 
 
-#define COPRTHR_VERSION_STRING "coprthr-1.6.2 (Freewill)"
+#define VERSION_STRING      "eocl-0.1"
 
 
 #define COPRTHR_VERSION_CODE \
