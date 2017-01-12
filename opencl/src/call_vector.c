@@ -7,14 +7,19 @@
 #include "icd_dispatch.h"
 
 
+extern cl_int _clGetPlatformIDs(cl_uint, cl_platform_id*, cl_uint*);
+extern cl_int _clGetPlatformInfo(cl_platform_id,cl_platform_info,size_t,
+        void*,size_t*);
+extern cl_int _clGetDeviceIDs(cl_platform_id, cl_device_type, cl_uint,
+        cl_device_id*, cl_uint*);
 //This file is the actual implementation of the KHRicdVendorDispatchRec
 //It points is a struct of pointers to my implemenations of API functions
 
 KHRicdVendorDispatch the_dispatch_vector = {
     /* OpenCL 1.0 */
-    .clGetPlatformIDs                                   = NULL,
-    .clGetPlatformInfo                                  = NULL,
-    .clGetDeviceIDs                                     = NULL,
+    .clGetPlatformIDs                                   = &_clGetPlatformIDs,
+    .clGetPlatformInfo                                  = &_clGetPlatformInfo,
+    .clGetDeviceIDs                                     = &_clGetDeviceIDs,
     .clGetDeviceInfo                                    = NULL,
     .clCreateContext                                    = NULL,
     .clCreateContextFromType                            = NULL,
