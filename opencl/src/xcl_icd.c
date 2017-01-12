@@ -27,7 +27,6 @@
 
 // ICD stuff 
 
-extern void * __icd_call_vector;
 static struct _cl_device_id device_id;
 static struct _cl_platform_id platform_id;
 
@@ -49,7 +48,7 @@ clIcdGetPlatformIDsKHR(
 
     initialize_dev_info();
 
-    platform_id.dispatch = NULL;//(void *) __icd_call_vector;
+    platform_id.dispatch = NULL;//&the_dispatch_vector;
     platform_id.profile = "<profile>";
     platform_id.version = VERSION_STRING;
     platform_id.name = "eocl";
