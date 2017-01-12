@@ -32,6 +32,8 @@ static struct _cl_platform_id platform_id;
 
 static void initialize_dev_info(void);
 
+extern KHRicdVendorDispatch the_dispatch_vector;
+
 cl_int 
 clIcdGetPlatformIDsKHR( 
 	cl_uint nplatforms, 
@@ -48,7 +50,7 @@ clIcdGetPlatformIDsKHR(
 
     initialize_dev_info();
 
-    platform_id.dispatch = NULL;//&the_dispatch_vector;
+    platform_id.dispatch = &the_dispatch_vector;
     platform_id.profile = "<profile>";
     platform_id.version = VERSION_STRING;
     platform_id.name = "eocl";
@@ -74,7 +76,7 @@ clIcdGetPlatformIDsKHR(
 static void initialize_dev_info(void)
 {
     static size_t dims[4] = {1, 1, 1, 0};
-    device_id.dispatch = NULL;
+    device_id.dispatch = &the_dispatch_vector;
     device_id.devtype = CL_DEVICE_TYPE_ACCELERATOR;
     device_id.vendorid = 0;
     device_id.max_compute_units = 1;          /* max_compute_units */
