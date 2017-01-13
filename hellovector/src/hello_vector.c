@@ -78,7 +78,6 @@ int main(void)
     #endif
     handle_error_GetDeviceIDs(err, true, true);
 
-#if 0
     //Display the information found about this device
     cl_uint addrsz;
     clGetDeviceInfo(device_id, CL_DEVICE_ADDRESS_BITS, sizeof(cl_uint), &addrsz,
@@ -219,7 +218,6 @@ int main(void)
     double total_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
     printf("Total time taken for addition of %u random numbers: %f seconds\n",
             VECTOR_SIZE, total_time);
-#endif
     return 0;
 }
 

@@ -100,7 +100,6 @@ _clGetPlatformInfo(
     if (platformid == NULL)
         return CL_INVALID_PLATFORM;
 
-    perror("blah.\n");
     char *info = NULL;
     switch (param_name)
     {
@@ -129,8 +128,6 @@ _clGetPlatformInfo(
 
     size_t len = strlen(info);
 
-    perror("Doing stuff.\n");
-
     if (param_val != NULL && param_sz < len)
         return CL_INVALID_VALUE;
 
@@ -139,8 +136,6 @@ _clGetPlatformInfo(
 
     if (param_val != NULL)
         strncpy((char *)param_val, info, param_sz);
-
-    perror("Success.\n");
 
     return CL_SUCCESS;
 }

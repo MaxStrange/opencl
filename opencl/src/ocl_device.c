@@ -18,8 +18,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* DAR */
-
+#include <stdio.h>
+#include <stdint.h>
+#include <stdbool.h>
+#include <stdlib.h>
 
 #include <CL/cl.h>
 
@@ -68,379 +70,203 @@ _clGetDeviceInfo(
 	size_t* param_sz_ret
 ) 
 {
-#if 0
-	if (__invalid_device_id(devid)) return(CL_INVALID_DEVICE);
-
-	size_t sz;
-
-	switch (param_name) {
-
-		case CL_DEVICE_TYPE:
-
-			__case_get_param(sizeof(cl_device_type),
-				&__resolve_devid_ocldevinfo(devid,devtype));
-
-			break;
-
-		case CL_DEVICE_VENDOR_ID:
-
-			__case_get_param(sizeof(cl_uint),
-				&__resolve_devid_ocldevinfo(devid,vendorid));
-
-			break;
-
-		case CL_DEVICE_MAX_COMPUTE_UNITS:
-
-			__case_get_param(sizeof(cl_uint),
-				&__resolve_devid_ocldevinfo(devid,max_compute_units));
-
-			break;
-		case CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS:
-
-			__case_get_param(sizeof(cl_uint),
-				&__resolve_devid_ocldevinfo(devid,max_wi_dim));
-
-			break;
-
-		case CL_DEVICE_MAX_WORK_ITEM_SIZES:
-
-			__case_get_param(
-				__resolve_devid_ocldevinfo(devid,max_wi_dim)*sizeof(size_t*),
-				&__resolve_devid_ocldevinfo(devid,max_wi_sz));
-
-			break;
-
-		case CL_DEVICE_MAX_WORK_GROUP_SIZE:
-
-			__case_get_param(sizeof(size_t),
-				&__resolve_devid_ocldevinfo(devid,max_wg_sz));
-
-			break;
-
-		case CL_DEVICE_PREFERRED_VECTOR_WIDTH_CHAR:
-
-			__case_get_param(sizeof(cl_uint),
-				&__resolve_devid_ocldevinfo(devid,pref_charn));
-
-			break;
-
-		case CL_DEVICE_PREFERRED_VECTOR_WIDTH_SHORT:
-
-			__case_get_param(sizeof(cl_uint),
-				&__resolve_devid_ocldevinfo(devid,pref_shortn));
-
-			break;
-
-		case CL_DEVICE_PREFERRED_VECTOR_WIDTH_INT:
-
-			__case_get_param(sizeof(cl_uint),
-				&__resolve_devid_ocldevinfo(devid,pref_intn));
-
-			break;
-
-		case CL_DEVICE_PREFERRED_VECTOR_WIDTH_LONG:
-
-			__case_get_param(sizeof(cl_uint),
-				&__resolve_devid_ocldevinfo(devid,pref_longn));
-
-			break;
-
-		case CL_DEVICE_PREFERRED_VECTOR_WIDTH_FLOAT:
-
-			__case_get_param(sizeof(cl_uint),
-				&__resolve_devid_ocldevinfo(devid,pref_floatn));
-
-			break;
-
-		case CL_DEVICE_PREFERRED_VECTOR_WIDTH_DOUBLE:
-
-			__case_get_param(sizeof(cl_uint),
-				&__resolve_devid_ocldevinfo(devid,pref_doublen));
-
-			break;
-
-		case CL_DEVICE_MAX_CLOCK_FREQUENCY:
-
-			__case_get_param(sizeof(cl_uint),
-				&__resolve_devid_ocldevinfo(devid,max_freq));
-
-			break;
-
-		case CL_DEVICE_ADDRESS_BITS:
-
-			__case_get_param(sizeof(cl_uint),
-				&__resolve_devid_ocldevinfo(devid,addr_bits));
-
-			break;
-
-		case CL_DEVICE_MAX_MEM_ALLOC_SIZE:
-
-			__case_get_param(sizeof(cl_ulong),
-				&__resolve_devid_ocldevinfo(devid,max_mem_alloc_sz));
-
-			break;
-
-		case CL_DEVICE_IMAGE_SUPPORT:
-
-			__case_get_param(sizeof(cl_bool),
-				&__resolve_devid_ocldevinfo(devid,supp_img));
-
-			break;
-
-		case CL_DEVICE_MAX_READ_IMAGE_ARGS:
-
-			__case_get_param(sizeof(cl_uint),
-				&__resolve_devid_ocldevinfo(devid,img_max_narg_r));
-
-			break;
-
-		case CL_DEVICE_MAX_WRITE_IMAGE_ARGS:
-
-			__case_get_param(sizeof(cl_uint),
-				&__resolve_devid_ocldevinfo(devid,img_max_narg_w));
-
-			break;
-
-		case CL_DEVICE_IMAGE2D_MAX_WIDTH:
-
-			__case_get_param(sizeof(size_t),
-				&__resolve_devid_ocldevinfo(devid,img2d_max_width));
-
-			break;
-
-		case CL_DEVICE_IMAGE2D_MAX_HEIGHT:
-
-			__case_get_param(sizeof(size_t),
-				&__resolve_devid_ocldevinfo(devid,img2d_max_height));
-
-			break;
-
-		case CL_DEVICE_IMAGE3D_MAX_WIDTH:
-
-			__case_get_param(sizeof(size_t),
-				&__resolve_devid_ocldevinfo(devid,img3d_max_width));
-
-			break;
-
-		case CL_DEVICE_IMAGE3D_MAX_HEIGHT:
-
-
-			__case_get_param(sizeof(size_t),
-				&__resolve_devid_ocldevinfo(devid,img3d_max_height));
-
-			break;
-
-		case CL_DEVICE_IMAGE3D_MAX_DEPTH:
-
-			__case_get_param(sizeof(size_t),
-				&__resolve_devid_ocldevinfo(devid,img3d_max_depth));
-
-			break;
-
-		case CL_DEVICE_MAX_SAMPLERS:
-
-			__case_get_param(sizeof(cl_uint),
-				&__resolve_devid_ocldevinfo(devid,max_samplers));
-
-			break;
-
-		case CL_DEVICE_MAX_PARAMETER_SIZE:
-
-			__case_get_param(sizeof(size_t),
-				&__resolve_devid_ocldevinfo(devid,max_param_sz));
-
-			break;
-
-		case CL_DEVICE_MEM_BASE_ADDR_ALIGN:	
-
-			__case_get_param(sizeof(cl_uint),
-				&__resolve_devid_ocldevinfo(devid,mem_align_bits)); 
-
-			break;
-
-
-		case CL_DEVICE_MIN_DATA_TYPE_ALIGN_SIZE:
-
-			__case_get_param(sizeof(cl_uint),
-				&__resolve_devid_ocldevinfo(devid,datatype_align_sz));
-
-			break;
-
-		case CL_DEVICE_SINGLE_FP_CONFIG:
-
-			__case_get_param(sizeof(cl_device_fp_config),
-				&__resolve_devid_ocldevinfo(devid,single_fp_config));
-
-			break;
-
-		case CL_DEVICE_GLOBAL_MEM_CACHE_TYPE:
-
-			__case_get_param(sizeof(cl_device_mem_cache_type),
-				&__resolve_devid_ocldevinfo(devid,global_mem_cache_type));
-
-			break;
-
-		case CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE:
-
-			__case_get_param(sizeof(cl_uint),
-				&__resolve_devid_ocldevinfo(devid,global_mem_cacheline_sz));
-
-			break;
-
-		case CL_DEVICE_GLOBAL_MEM_CACHE_SIZE:
-
-			__case_get_param(sizeof(cl_ulong),
-				&__resolve_devid_ocldevinfo(devid,global_mem_cache_sz));
-
-			break;
-
-		case CL_DEVICE_GLOBAL_MEM_SIZE:
-
-			__case_get_param(sizeof(cl_ulong),
-				&__resolve_devid_ocldevinfo(devid,global_mem_sz));
-
-			break;
-
-		case CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE:
-
-			__case_get_param(sizeof(cl_ulong),
-				&__resolve_devid_ocldevinfo(devid,max_const_buffer_sz));
-
-			break;
-
-		case CL_DEVICE_MAX_CONSTANT_ARGS:
-
-			__case_get_param(sizeof(cl_uint),
-				&__resolve_devid_ocldevinfo(devid,max_const_narg));
-
-			break;
-
-		case CL_DEVICE_LOCAL_MEM_TYPE:
-
-			__case_get_param(sizeof(cl_device_local_mem_type),
-				&__resolve_devid_ocldevinfo(devid,local_mem_type));
-
-			break;
-
-		case CL_DEVICE_LOCAL_MEM_SIZE:
-
-			__case_get_param(sizeof(cl_ulong),
-				&__resolve_devid_ocldevinfo(devid,local_mem_sz));
-
-			break;
-
-		case CL_DEVICE_ERROR_CORRECTION_SUPPORT:
-
-			__case_get_param(sizeof(cl_bool),
-				&__resolve_devid_ocldevinfo(devid,supp_ec));
-
-			break;
-
-		case CL_DEVICE_PROFILING_TIMER_RESOLUTION:
-
-			__case_get_param(sizeof(size_t),
-				&__resolve_devid_ocldevinfo(devid,prof_timer_res));
-
-			break;
-
-		case CL_DEVICE_ENDIAN_LITTLE:
-
-			__case_get_param(sizeof(cl_bool),
-				&__resolve_devid_ocldevinfo(devid,endian_little));
-
-			break;
-
-		case CL_DEVICE_AVAILABLE:
-
-			__case_get_param(sizeof(cl_bool),
-				&__resolve_devid_ocldevinfo(devid,avail));
-
-			break;
-
-		case CL_DEVICE_COMPILER_AVAILABLE:
-
-			__case_get_param(sizeof(cl_bool),
-				&__resolve_devid_ocldevinfo(devid,compiler_avail));
-
-			break;
-
-		case CL_DEVICE_EXECUTION_CAPABILITIES:
-
-			__case_get_param(sizeof(cl_device_exec_capabilities),
-				&__resolve_devid_ocldevinfo(devid,supp_exec_cap));
-
-			break;
-
-		case CL_DEVICE_QUEUE_PROPERTIES:
-
-			__case_get_param(sizeof(cl_command_queue_properties),
-				&__resolve_devid_ocldevinfo(devid,cmdq_prop));
-
-			break;
-
-		case CL_DEVICE_PLATFORM:
-
-			__case_get_param(sizeof(cl_platform_id),
-				&__resolve_devid_ocldevinfo(devid,platformid));
-
-			break;
-
-		case CL_DEVICE_NAME:
-
-			__case_get_param(
-				1+strnlen(__resolve_devid_devinfo(devid,name),__CLMAXSTR_BUFSZ),
-				__resolve_devid_devinfo(devid,name));
-
-			break;
-
-		case CL_DEVICE_VENDOR:
-
-			__case_get_param(
-				1+strnlen(__resolve_devid_devinfo(devid,vendor),__CLMAXSTR_BUFSZ),
-				__resolve_devid_devinfo(devid,vendor));
-
-			break;
-
-		case CL_DRIVER_VERSION:
-
-			__case_get_param(
-				1+strnlen(__resolve_devid_devinfo(devid,drv_version),__CLMAXSTR_BUFSZ),
-				__resolve_devid_devinfo(devid,drv_version));
-
-			break;
-
-		case CL_DEVICE_PROFILE:
-
-			__case_get_param(
-				1+strnlen(__resolve_devid_devinfo(devid,profile),__CLMAXSTR_BUFSZ),
-				__resolve_devid_devinfo(devid,profile));
-
-			break;
-
-		case CL_DEVICE_VERSION:
-
-			__case_get_param(
-				1+strnlen(__resolve_devid_devinfo(devid,version),__CLMAXSTR_BUFSZ),
-				__resolve_devid_devinfo(devid,version));
-
-			break;
-
-		case CL_DEVICE_EXTENSIONS:
-
-			__case_get_param(
-				1+strnlen(__resolve_devid_ocldevinfo(devid,extensions),__CLMAXSTR_BUFSZ),
-				__resolve_devid_ocldevinfo(devid,extensions));
-
-			break;
-
-		default:
-
-			return(CL_INVALID_VALUE);
-
-	}
-
-	return(CL_SUCCESS);
-#endif
+    if (devid == NULL)
+        return CL_INVALID_DEVICE;
+
+    if (param_sz_ret == NULL && param_val == NULL)
+        return CL_INVALID_VALUE;
+
+    if (param_val != NULL && param_sz == 0)
+        return CL_INVALID_VALUE;
+
+    char *info = NULL;
+    bool info_string = false;
+    switch (param_name) {
+        case CL_DEVICE_TYPE:
+            if (param_val != NULL)
+                *((cl_device_type *)param_val) = devid->devtype;
+            else
+                *param_sz_ret = sizeof(devid->devtype);
+            break;
+        case CL_DEVICE_VENDOR_ID:
+            if (param_val != NULL)
+                *((cl_uint *)param_val) = devid->vendorid;
+            else
+                *param_sz_ret = sizeof(devid->vendorid);
+            break;
+        case CL_DEVICE_MAX_COMPUTE_UNITS:
+            if (param_val != NULL)
+                *((cl_uint *)param_val) = devid->max_compute_units;
+            else
+                *param_sz_ret = sizeof(devid->max_compute_units);
+            break;
+        case CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS:
+            if (param_val != NULL)
+                *((cl_uint *)param_val) = devid->max_wi_dim;
+            else
+                *param_sz_ret = sizeof(devid->max_wi_dim);
+            break;
+        case CL_DEVICE_MAX_WORK_ITEM_SIZES:
+            if (param_val != NULL)
+                *((size_t **)param_val) = devid->max_wi_sz;
+            else
+                *param_sz_ret = sizeof(devid->max_wi_sz[0] * 4);
+            break;
+        case CL_DEVICE_MAX_WORK_GROUP_SIZE:
+            if (param_val != NULL)
+                *((size_t *)param_val) = devid->max_wg_sz;
+            else
+                *param_sz_ret = sizeof(devid->max_wg_sz); 
+            break;
+        case CL_DEVICE_PREFERRED_VECTOR_WIDTH_CHAR:
+            if (param_val != NULL)
+                *((cl_uint *)param_val) = devid->pref_charn;
+            else
+                *param_sz_ret = sizeof(devid->pref_charn);
+            break;
+        case CL_DEVICE_PREFERRED_VECTOR_WIDTH_SHORT:
+            if (param_val != NULL)
+                *((cl_uint *)param_val) = devid->pref_shortn;
+            else
+                *param_sz_ret = sizeof(devid->pref_shortn);
+            break;
+        case CL_DEVICE_PREFERRED_VECTOR_WIDTH_INT:
+            if (param_val != NULL)
+                *((cl_uint *)param_val) = devid->pref_intn;
+            else
+                *param_sz_ret = sizeof(devid->pref_intn);
+            break;
+        case CL_DEVICE_PREFERRED_VECTOR_WIDTH_LONG:
+            if (param_val != NULL)
+                *((cl_uint *)param_val) = devid->pref_longn;
+            else
+                *param_sz_ret = sizeof(devid->pref_longn);
+            break;
+        case CL_DEVICE_PREFERRED_VECTOR_WIDTH_FLOAT:
+            if (param_val != NULL)
+                *((cl_uint *)param_val) = devid->pref_floatn;
+            else
+                *param_sz_ret = sizeof(devid->pref_floatn);
+            break;
+        case CL_DEVICE_PREFERRED_VECTOR_WIDTH_DOUBLE:
+            if (param_val != NULL)
+                *((cl_uint *)param_val) = devid->pref_doublen;
+            else
+                *param_sz_ret = sizeof(devid->pref_doublen);
+            break;
+        case CL_DEVICE_MAX_CLOCK_FREQUENCY:
+            if (param_val != NULL)
+                *((cl_uint *)param_val) = devid->max_freq;
+            else
+                *param_sz_ret = sizeof(devid->max_freq);
+            break;
+        case CL_DEVICE_ADDRESS_BITS:
+            if (param_val != NULL)
+                *((cl_uint *)param_val) = devid->addr_bits;
+            else
+                *param_sz_ret = sizeof(devid->addr_bits);
+            break;
+        case CL_DEVICE_MAX_MEM_ALLOC_SIZE:
+            if (param_val != NULL)
+                *((cl_ulong *)param_val) = devid->max_mem_alloc_sz;
+            else
+                *param_sz_ret = sizeof(devid->max_mem_alloc_sz);
+            break;
+        case CL_DEVICE_IMAGE_SUPPORT:
+            if (param_val != NULL)
+                *((cl_bool *)param_val) = devid->supp_img;
+            else
+                *param_sz_ret = sizeof(devid->supp_img);
+            break;
+        case CL_DEVICE_MAX_READ_IMAGE_ARGS:
+            if (param_val != NULL)
+                *((cl_uint *)param_val) = devid->img_max_narg_r;
+            else
+                *param_sz_ret = sizeof(devid->img_max_narg_r);
+            break;
+        case CL_DEVICE_MAX_WRITE_IMAGE_ARGS:
+            if (param_val != NULL)
+                *((cl_uint *)param_val) = devid->img_max_narg_w;
+            else
+                *param_sz_ret = sizeof(devid->img_max_narg_w);
+            break;
+        case CL_DEVICE_IMAGE2D_MAX_WIDTH:
+            break;
+        case CL_DEVICE_IMAGE2D_MAX_HEIGHT:
+            break;
+        case CL_DEVICE_IMAGE3D_MAX_WIDTH:
+            break;
+        case CL_DEVICE_IMAGE3D_MAX_HEIGHT:
+            break;
+        case CL_DEVICE_IMAGE3D_MAX_DEPTH:
+            break;
+        case CL_DEVICE_MAX_SAMPLERS:
+            break;
+        case CL_DEVICE_MAX_PARAMETER_SIZE:
+            break;
+        case CL_DEVICE_MEM_BASE_ADDR_ALIGN:	
+            break;
+        case CL_DEVICE_MIN_DATA_TYPE_ALIGN_SIZE:
+            break;
+        case CL_DEVICE_SINGLE_FP_CONFIG:
+            break;
+        case CL_DEVICE_GLOBAL_MEM_CACHE_TYPE:
+            break;
+        case CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE:
+            break;
+        case CL_DEVICE_GLOBAL_MEM_CACHE_SIZE:
+            break;
+        case CL_DEVICE_GLOBAL_MEM_SIZE:
+            break;
+        case CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE:
+            break;
+        case CL_DEVICE_MAX_CONSTANT_ARGS:
+            break;
+        case CL_DEVICE_LOCAL_MEM_TYPE:
+            break;
+        case CL_DEVICE_LOCAL_MEM_SIZE:
+            break;
+        case CL_DEVICE_ERROR_CORRECTION_SUPPORT:
+            break;
+        case CL_DEVICE_PROFILING_TIMER_RESOLUTION:
+            break;
+        case CL_DEVICE_ENDIAN_LITTLE:
+            break;
+        case CL_DEVICE_AVAILABLE:
+            break;
+        case CL_DEVICE_COMPILER_AVAILABLE:
+            break;
+        case CL_DEVICE_EXECUTION_CAPABILITIES:
+            break;
+        case CL_DEVICE_QUEUE_PROPERTIES:
+            break;
+        case CL_DEVICE_PLATFORM:
+            break;
+        case CL_DEVICE_NAME:
+            break;
+        case CL_DEVICE_VENDOR:
+            break;
+        case CL_DRIVER_VERSION:
+            break;
+        case CL_DEVICE_PROFILE:
+            break;
+        case CL_DEVICE_VERSION:
+            break;
+        case CL_DEVICE_EXTENSIONS:
+            break;
+        default:
+            return CL_INVALID_VALUE;
+    }
+
+    if (info_string)
+    {
+        size_t len = strlen(info);
+
+        if (param_val != NULL)
+            strncpy((char *)param_val, info, param_sz);
+    }
+
+    return CL_SUCCESS;
 }
 
 
