@@ -52,10 +52,10 @@ clIcdGetPlatformIDsKHR(
 
     platform_id.dispatch = &the_dispatch_vector;
     platform_id.profile = "<profile>";
-    platform_id.version = VERSION_STRING;
-    platform_id.name = "eocl";
-    platform_id.vendor = "Max Strange";
-    platform_id.extensions = "cl_khr_icd";
+    platform_id.version = EOCL_PLATFORM_VERSION;
+    platform_id.name = EOCL_PLATFORM_NAME;
+    platform_id.vendor = EOCL_PLATFORM_VENDOR;
+    platform_id.extensions = EOCL_PLATFORM_EXTENSIONS;
     platform_id.ndevices = 1;
     platform_id.dtab = &device_id;
 

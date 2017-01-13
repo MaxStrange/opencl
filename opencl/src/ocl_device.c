@@ -27,6 +27,7 @@
 
 #include "xcl_structs.h"
 #include "printcl.h"
+#include "version.h"
 
 #define min(a,b) ((a<b)?a:b)
 
@@ -70,6 +71,8 @@ _clGetDeviceInfo(
 	size_t* param_sz_ret
 ) 
 {
+    return CL_INVALID_DEVICE;
+
     if (devid == NULL)
         return CL_INVALID_DEVICE;
 
@@ -351,39 +354,39 @@ _clGetDeviceInfo(
             break;
         case CL_DEVICE_NAME:
             if (param_val != NULL)
-                *((char *)param_val) = "epiphany coprocessor";
+                strncpy((char *)param_val, EOCL_DEVICE_NAME, param_sz);
             else
-                *param_sz_ret = sizeof("epiphany coprocessor");
+                *param_sz_ret = strlen(EOCL_DEVICE_NAME);
             break;
         case CL_DEVICE_VENDOR:
             if (param_val != NULL)
-                *((char *)param_val) = "Max Strange";
+                strncpy((char *)param_val, EOCL_DEVICE_VENDOR, param_sz);
             else
-                *param_sz_ret = sizeof("Max Strange");
+                *param_sz_ret = strlen(EOCL_DEVICE_NAME);
             break;
         case CL_DRIVER_VERSION:
             if (param_val != NULL)
-                *((char *)param_val) = "Version 0.1";
+                strncpy((char *)param_val, EOCL_DRIVER_VERSION, param_sz);
             else
-                *param_sz_ret = sizeof("Version 0.1");
+                *param_sz_ret = strlen(EOCL_DRIVER_VERSION);
             break;
         case CL_DEVICE_PROFILE:
             if (param_val != NULL)
-                *((//TODO))
+                strncpy((char *)param_val, EOCL_DEVICE_PROFILE, param_sz);
             else
-                *param_sz_ret = sizeof(//TODO); 
+                *param_sz_ret = strlen(EOCL_DEVICE_PROFILE);
             break;
         case CL_DEVICE_VERSION:
             if (param_val != NULL)
-                *((//TODO))
+                strncpy((char *)param_val, EOCL_DEVICE_VERSION, param_sz);
             else
-                *param_sz_ret = sizeof(//TODO);
+                *param_sz_ret = strlen(EOCL_DEVICE_VERSION);
             break;
         case CL_DEVICE_EXTENSIONS:
             if (param_val != NULL)
-                *((char *)param_val) = devid->extensions;
+                strncpy((char *)param_val, devid->extensions, param_sz);
             else
-                *param_sz_ret = sizeof(devid->extensions);
+                *param_sz_ret = strlen(devid->extensions);
             break;
         default:
             return CL_INVALID_VALUE;

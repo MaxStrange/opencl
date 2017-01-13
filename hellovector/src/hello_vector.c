@@ -78,10 +78,13 @@ int main(void)
     #endif
     handle_error_GetDeviceIDs(err, true, true);
 
+    printf("Now calling clGetDeviceInfo.\n");
+
     //Display the information found about this device
     cl_uint addrsz;
     clGetDeviceInfo(device_id, CL_DEVICE_ADDRESS_BITS, sizeof(cl_uint), &addrsz,
             NULL);
+    printf("Successfully got through clGetDeviceInfo\n");
     size_t exten_len;
     clGetDeviceInfo(device_id, CL_DEVICE_EXTENSIONS, 0, NULL, &exten_len);
     char *extensions = (char *)malloc(exten_len * sizeof(char));
