@@ -191,68 +191,199 @@ _clGetDeviceInfo(
                 *param_sz_ret = sizeof(devid->img_max_narg_w);
             break;
         case CL_DEVICE_IMAGE2D_MAX_WIDTH:
+            if (param_val != NULL)
+                *((size_t *)param_val) = devid->img2d_max_width;
+            else
+                *param_sz_ret = sizeof(devid->img2d_max_width);
             break;
         case CL_DEVICE_IMAGE2D_MAX_HEIGHT:
+            if (param_val != NULL)
+                *((size_t *)param_val) = devid->img2d_max_height;
+            else
+                *param_sz_ret = sizeof(devid->img2d_max_height);
             break;
         case CL_DEVICE_IMAGE3D_MAX_WIDTH:
+            if (param_val != NULL)
+                *((size_t *)param_val) = devid->img3d_max_width;
+            else
+                *param_sz_ret = sizeof(devid->img3d_max_width);
             break;
         case CL_DEVICE_IMAGE3D_MAX_HEIGHT:
+            if (param_val != NULL)
+                *((size_t *)param_val) = devid->img3d_max_height;
+            else
+                *param_sz_ret = sizeof(devid->img3d_max_height);
             break;
         case CL_DEVICE_IMAGE3D_MAX_DEPTH:
+            if (param_val != NULL)
+                *((size_t *)param_val) = devid->img3d_max_depth;
+            else
+                *param_sz_ret = sizeof(devid->img3d_max_depth);
             break;
         case CL_DEVICE_MAX_SAMPLERS:
+            if (param_val != NULL)
+                *((cl_uint *)param_val) = devid->max_samplers;
+            else
+                *param_sz_ret = sizeof(devid->max_samplers);
             break;
         case CL_DEVICE_MAX_PARAMETER_SIZE:
+            if (param_val != NULL)
+                *((size_t *)param_val) = devid->max_param_sz;
+            else
+                *param_sz_ret = sizeof(devid->max_param_sz);
             break;
         case CL_DEVICE_MEM_BASE_ADDR_ALIGN:	
+            if (param_val != NULL)
+                *((cl_uint *)param_val) = devid->mem_align_bits;
+            else
+                *param_sz_ret = sizeof(devid->mem_align_bits);
             break;
         case CL_DEVICE_MIN_DATA_TYPE_ALIGN_SIZE:
+            if (param_val != NULL)
+                *((cl_uint *)param_val) = devid->datatype_align_sz;
+            else
+                *param_sz_ret = sizeof(devid->datatype_align_sz);
             break;
         case CL_DEVICE_SINGLE_FP_CONFIG:
+            if (param_val != NULL)
+                *((cl_device_fp_config *)param_val) = devid->single_fp_config;
+            else
+                *param_sz_ret = sizeof(devid->single_fp_config);
             break;
         case CL_DEVICE_GLOBAL_MEM_CACHE_TYPE:
+            if (param_val != NULL)
+                *((cl_device_mem_cache_type *)param_val) =
+                        devid->global_mem_cache_type;
+            else
+                *param_sz_ret = sizeof(devid->global_mem_cache_type);
             break;
         case CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE:
+            if (param_val != NULL)
+                *((cl_uint *)param_val) = devid->global_mem_cacheline_sz;
+            else
+                *param_sz_ret = sizeof(devid->global_mem_cacheline_sz);
             break;
         case CL_DEVICE_GLOBAL_MEM_CACHE_SIZE:
+            if (param_val != NULL)
+                *((cl_ulong *)param_val) = devid->global_mem_cache_sz;
+            else
+                *param_sz_ret = sizeof(devid->global_mem_cache_sz);
             break;
         case CL_DEVICE_GLOBAL_MEM_SIZE:
+            if (param_val != NULL)
+                *((cl_ulong *)param_val) = devid->global_mem_sz;
+            else
+                *param_sz_ret = sizeof(devid->global_mem_sz);
             break;
         case CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE:
+            if (param_val != NULL)
+                *((cl_ulong *)param_val) = devid->max_const_buffer_sz;
+            else
+                *param_sz_ret = sizeof(devid->max_const_buffer_sz);
             break;
         case CL_DEVICE_MAX_CONSTANT_ARGS:
+            if (param_val != NULL)
+                *((cl_ulong *)param_val) = devid->max_const_narg;
+            else
+                *param_sz_ret = sizeof(devid->max_const_narg);
             break;
         case CL_DEVICE_LOCAL_MEM_TYPE:
+            if (param_val != NULL)
+                *((cl_device_local_mem_type *)param_val) = devid->local_mem_type;
+            else
+                *param_sz_ret = sizeof(devid->local_mem_type);
             break;
         case CL_DEVICE_LOCAL_MEM_SIZE:
+            if (param_val != NULL)
+                *((cl_ulong *)param_val) = devid->local_mem_sz;
+            else
+                *param_sz_ret = sizeof(devid->local_mem_sz);
             break;
         case CL_DEVICE_ERROR_CORRECTION_SUPPORT:
+            if (param_val != NULL)
+                *((cl_bool *)param_val) = devid->supp_ec;
+            else
+                *param_sz_ret = sizeof(devid->supp_ec);
             break;
         case CL_DEVICE_PROFILING_TIMER_RESOLUTION:
+            if (param_val != NULL)
+                *((size_t *)param_val) = devid->prof_timer_res;
+            else
+                *param_sz_ret = sizeof(devid->prof_timer_res);
             break;
         case CL_DEVICE_ENDIAN_LITTLE:
+            if (param_val != NULL)
+                *((cl_bool *)param_val) = devid->endian_little;
+            else
+                *param_sz_ret = sizeof(devid->endian_little);
             break;
         case CL_DEVICE_AVAILABLE:
+            if (param_val != NULL)
+                *((cl_bool *)param_val) = devid->avail;
+            else
+                *param_sz_ret = sizeof(devid->avail);
             break;
         case CL_DEVICE_COMPILER_AVAILABLE:
+            if (param_val != NULL)
+                *((cl_bool *)param_val) = devid->compiler_avail;
+            else
+                *param_sz_ret = sizeof(devid->compiler_avail);
             break;
         case CL_DEVICE_EXECUTION_CAPABILITIES:
+            if (param_val != NULL)
+                *((cl_device_exec_capabilities *)param_val) =
+                        devid->supp_exec_cap;
+            else
+                *param_sz_ret = sizeof(devid->supp_exec_cap);
             break;
         case CL_DEVICE_QUEUE_PROPERTIES:
+            if (param_val != NULL)
+                *((cl_command_queue_properties *)param_val) =
+                        devid->cmdq_prop;
+            else
+                *param_sz_ret = sizeof(devid->cmdq_prop);
             break;
         case CL_DEVICE_PLATFORM:
+            if (param_val != NULL)
+                *((cl_platform_id *)param_val) = devid->platformid;
+            else
+                *param_sz_ret = sizeof(devid->platformid);
             break;
         case CL_DEVICE_NAME:
+            if (param_val != NULL)
+                *((char *)param_val) = "epiphany coprocessor";
+            else
+                *param_sz_ret = sizeof("epiphany coprocessor");
             break;
         case CL_DEVICE_VENDOR:
+            if (param_val != NULL)
+                *((char *)param_val) = "Max Strange";
+            else
+                *param_sz_ret = sizeof("Max Strange");
             break;
         case CL_DRIVER_VERSION:
+            if (param_val != NULL)
+                *((char *)param_val) = "Version 0.1";
+            else
+                *param_sz_ret = sizeof("Version 0.1");
             break;
         case CL_DEVICE_PROFILE:
+            if (param_val != NULL)
+                *((//TODO))
+            else
+                *param_sz_ret = sizeof(//TODO); 
             break;
         case CL_DEVICE_VERSION:
+            if (param_val != NULL)
+                *((//TODO))
+            else
+                *param_sz_ret = sizeof(//TODO);
             break;
         case CL_DEVICE_EXTENSIONS:
+            if (param_val != NULL)
+                *((char *)param_val) = devid->extensions;
+            else
+                *param_sz_ret = sizeof(devid->extensions);
             break;
         default:
             return CL_INVALID_VALUE;
