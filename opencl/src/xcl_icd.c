@@ -14,11 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdlib.h>
 
 #include <CL/cl.h>
 
 #include "version.h"
 #include "xcl_structs.h"
+#include "version.h"
 #include "printcl.h"
 
 #ifndef min
@@ -122,6 +126,10 @@ static void initialize_dev_info(void)
     device_id.supp_exec_cap = CL_EXEC_KERNEL; /* supp_exec_cap */
     device_id.cmdq_prop = CL_QUEUE_PROFILING_ENABLE; /* cmdq_prop */
     device_id.platformid = (cl_platform_id)(-1); /* platformid */
+
+    device_id.avail = true;
+    device_id.compiler_avail = true;
+    device_id.extensions = EOCL_PLATFORM_EXTENSIONS;
 }
 
 

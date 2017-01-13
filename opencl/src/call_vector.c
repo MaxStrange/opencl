@@ -12,6 +12,8 @@ extern cl_int _clGetPlatformInfo(cl_platform_id,cl_platform_info,size_t,
         void*,size_t*);
 extern cl_int _clGetDeviceIDs(cl_platform_id, cl_device_type, cl_uint,
         cl_device_id*, cl_uint*);
+extern cl_int _clGetDeviceInfo(cl_device_id, cl_device_info, size_t,
+        void *, size_t *);
 //This file is the actual implementation of the KHRicdVendorDispatchRec
 //It points is a struct of pointers to my implemenations of API functions
 
@@ -20,7 +22,7 @@ KHRicdVendorDispatch the_dispatch_vector = {
     .clGetPlatformIDs                                   = &_clGetPlatformIDs,
     .clGetPlatformInfo                                  = &_clGetPlatformInfo,
     .clGetDeviceIDs                                     = &_clGetDeviceIDs,
-    .clGetDeviceInfo                                    = NULL,
+    .clGetDeviceInfo                                    = &_clGetDeviceInfo,
     .clCreateContext                                    = NULL,
     .clCreateContextFromType                            = NULL,
     .clRetainContext                                    = NULL,

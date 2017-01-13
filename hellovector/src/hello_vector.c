@@ -85,17 +85,22 @@ int main(void)
     clGetDeviceInfo(device_id, CL_DEVICE_ADDRESS_BITS, sizeof(cl_uint), &addrsz,
             NULL);
     printf("Successfully got through clGetDeviceInfo\n");
+    printf("Calling it again to get extensions length.\n");
     size_t exten_len;
     clGetDeviceInfo(device_id, CL_DEVICE_EXTENSIONS, 0, NULL, &exten_len);
     char *extensions = (char *)malloc(exten_len * sizeof(char));
+    printf("Now calling it to get the extensions string.\n");
     clGetDeviceInfo(device_id, CL_DEVICE_EXTENSIONS, exten_len * sizeof(char),
             extensions, NULL);
     cl_uint maxcompute;
+    printf("Now calling it to get the number of max compute units.\n");
     clGetDeviceInfo(device_id, CL_DEVICE_MAX_COMPUTE_UNITS, sizeof(cl_uint),
             &maxcompute, NULL);
     size_t name_len;
+    printf("Now calling it to get the length of name.\n");
     clGetDeviceInfo(device_id, CL_DEVICE_NAME, 0, NULL, &name_len);
     char *dev_name = (char *)malloc(name_len * sizeof(char));
+    printf("Calling one last time to get the name.\n");
     clGetDeviceInfo(device_id, CL_DEVICE_NAME, name_len * sizeof(char),
             dev_name, NULL);
     printf("Found device: %s with address width %u, max compute units of %u, and "\

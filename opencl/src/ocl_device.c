@@ -22,6 +22,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include <CL/cl.h>
 
@@ -71,8 +72,6 @@ _clGetDeviceInfo(
 	size_t* param_sz_ret
 ) 
 {
-    return CL_INVALID_DEVICE;
-
     if (devid == NULL)
         return CL_INVALID_DEVICE;
 
